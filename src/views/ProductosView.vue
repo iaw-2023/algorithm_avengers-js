@@ -1,10 +1,9 @@
-<script setup>
-    import TheWelcome from '../components/TheWelcome.vue'
+<script>
 </script>
 
 <template>
     <main>    
-        <TheWelcome />
+        <p> Esta es la lista de productos </p>
     </main>
 </template>
 
