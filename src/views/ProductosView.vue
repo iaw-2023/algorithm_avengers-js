@@ -1,8 +1,8 @@
-<script>
+<script setup>
 </script>
 
 <template>
-    <main>    
+    <main> 
         <p> Esta es la lista de productos </p>
     </main>
 </template>
