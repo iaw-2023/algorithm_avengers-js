@@ -5,7 +5,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand text-center" href="#">
+            <a id="logo" class="navbar-brand text-center" href="/home">
                 <img src="https://manosargentinas.com/inicio/wp-content/uploads/2022/04/logo_new1.png" alt="Logo" class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
@@ -13,20 +13,28 @@ import { RouterLink, RouterView } from 'vue-router'
             </button>
             <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
+                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menú</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li class="nav-item">
-                    <RouterLink to="/">Home</RouterLink>
-                </li>
-                <li class="nav-item">
-                    <RouterLink to="/about">About</RouterLink>
-                </li>
-                <li class="nav-item">
-                    <RouterLink to="/productos">Productos</RouterLink>
-                </li>
+                    <li class="nav-item">
+                        <RouterLink to="/">Home</RouterLink>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Productos
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><RouterLink to="/productos">Todos los productos</RouterLink></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <RouterLink to="/about">About</RouterLink>
+                    </li>
                 </ul>
                 <form class="d-flex mt-3" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -39,4 +47,9 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <style>
+#logo{
+    text-align: center;
+    display: block;
+    margin:auto;
+}
 </style>
