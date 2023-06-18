@@ -19,21 +19,21 @@ import { RouterLink, RouterView } from 'vue-router'
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                        <RouterLink to="/">Home</RouterLink>
+                        <RouterLink to="/" class="nav-link active">Home</RouterLink>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Productos
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><RouterLink to="/productos">Todos los productos</RouterLink></li>
+                            <li><RouterLink to="/productos" class="dropdown-item">Todos los productos</RouterLink></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Action</a></li>
                             <li><a class="dropdown-item" href="#">Another action</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <RouterLink to="/about">About</RouterLink>
+                        <RouterLink to="/about" class="nav-link active">About</RouterLink>
                     </li>
                 </ul>
                 <form class="d-flex mt-3" role="search">

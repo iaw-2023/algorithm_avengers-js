@@ -9,7 +9,7 @@
         <h5 class="card-title">Nombre de producto</h5>
         <p class="card-text">Descripción del producto</p>
         <a href="#" class="btn btn-primary">
-            <v-icon name="bi-cart-plus" animation="wrench" hover scale="1.2" aria-label="Añadir al carrito" label="Añadir al carrito" title="Añadir al carrito" />
+            <v-icon name="bi-cart-plus" animation="wrench" hover scale="1.2" title="Añadir al carrito" />
             Añadir al carrito
         </a>
     </div>
