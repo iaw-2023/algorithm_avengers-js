@@ -1,11 +1,10 @@
 <script setup>
-import ProdCard from '../components/ProductCard.vue'
+import ProdCards from '../components/ProductCards.vue'
 </script>
 
 <template>
     <main> 
-    <ProdCard />
-        <p> Esta es la lista de productos </p>
+        <ProdCards />
     </main>
 </template>
 
