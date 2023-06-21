@@ -1,6 +1,6 @@
 <template>
-    <div class="card text-center" style="width: 18rem;">
-    <img :src="`${imagen}`" class="rounded mx-auto d-block" alt="Foto" id="foto">
+    <div id="card-cuerpo" class="card text-center">
+        <img :src="`${imagen}`" class="rounded mx-auto d-block" alt="Foto" id="foto">
         <div class="card-body">
             <h5 class="card-title">{{ nombre }}</h5>
             <h6 class="card-subtitle mb-2 text-body-secondary">$ {{ parseFloat(precio).toFixed(2) }}</h6>
@@ -37,5 +37,10 @@
 #foto {
     width:auto;
     max-height: 250px;
+}
+
+#card-cuerpo{
+    height: 37rem;
+    width: 18rem;
 }
 </style>
