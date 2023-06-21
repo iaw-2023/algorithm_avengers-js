@@ -1,13 +1,18 @@
 <template>
-    <div v-for="prod in productos.data" :key="prod.id">
-        <ProductCard 
-            :imagen=prod.imagen
-            :nombre=prod.nombre 
-            :precio=prod.precio
-            :descripcion=prod.descripcion
-            :categoria=prod.categoria.nombre
-            :talles=prod.talles
-        />
+    <div class="container text-center">
+        <div class="row justify-content-evenly">
+            <div class="col" v-for="prod in productos.data" :key="prod.id">
+                <ProductCard 
+                    class="card"
+                    :imagen=prod.imagen
+                    :nombre=prod.nombre 
+                    :precio=prod.precio
+                    :descripcion=prod.descripcion
+                    :categoria=prod.categoria.nombre
+                    :talles=prod.talles
+                />
+            </div>
+        </div>
     </div>
 </template>
 
@@ -32,4 +37,13 @@
 </script>
 
 <style>
+.card{
+    margin:10px;
+}
+
+#card-container{
+    display: inline-block;
+    flex-direction: column;
+}
+
 </style>
