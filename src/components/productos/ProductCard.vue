@@ -7,23 +7,33 @@
             <p class="card-text" id="descripcion">{{ descripcion }}</p>
             <p class="card-text"><small class="text-body-secondary">Talles: {{ talles }}</small></p>
             <p class="card-text"><small class="text-body-secondary">#{{ categoria }}</small></p>
-            <a href="#" class="btn btn-primary">
+            <button class="btn btn-primary" @click="$event => addProducto()">
                 <v-icon name="bi-cart-plus" animation="wrench" hover scale="1.2" title="Añadir al carrito" />
                 Añadir al carrito
-            </a>
+            </button>
         </div>
     </div>
 </template>
 
-<script setup>
-    const props = defineProps({
-        imagen: String,
-        nombre: String,
-        precio: String,
-        descripcion: String,
-        categoria: String,
-        talles: String
-    })
+<script>
+    export default{
+        name:'ProductCard',
+            props: {
+                id: Number,
+                imagen: String,
+                nombre: String,
+                precio: String,
+                descripcion: String,
+                categoria: String,
+                talles: String,
+                cantidad: 1
+            },
+            methods:{
+                addProducto(){
+                    console.log("Hola");
+                }
+            }
+    }
 </script>
 
 <style>

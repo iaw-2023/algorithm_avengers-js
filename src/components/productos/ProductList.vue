@@ -4,6 +4,7 @@
             <div class="col" v-for="prod in productos.data" :key="prod.id">
                 <ProductCard 
                     class="card"
+                    :id=prod.id
                     :imagen=prod.imagen
                     :nombre=prod.nombre 
                     :precio=prod.precio

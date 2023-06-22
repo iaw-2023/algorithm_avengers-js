@@ -1,9 +1,7 @@
 import { defineStore } from 'pinia'
 
 export const useCartStore = defineStore("CartStore", {
-  state: () => {
-    return {}
-  }
+  state: () => ({ cart: [], cartTotal: 0 }),
 
   // actions
 
