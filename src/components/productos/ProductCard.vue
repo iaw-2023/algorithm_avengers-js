@@ -22,8 +22,7 @@
         prod: {
             type: Object,
             required: true
-        },
-        cantidad: 1
+        }
     });
 
     const data = useCartStore();

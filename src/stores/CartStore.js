@@ -20,6 +20,7 @@ export const useCartStore = defineStore("CartStore", {
 	actions: {
 		addToCart(item){
 			this.cartItems.push(item);
+			this.cartItems[this.cartItems.length-1].quantity = 1;
 		},
 
 		incrementQty(item){
@@ -30,8 +31,11 @@ export const useCartStore = defineStore("CartStore", {
 
 		decrementQty(item){
 			let index = this.cartItems.findIndex(product => product.id === item.id);
-			if(index !== -1)	
-				this.cartItems[index].quantity -= 1;
+			if(index !== -1){
+				if(this.cartItems[index].quantity > 1){
+					this.cartItems[index].quantity -= 1;
+				}
+			}
 		},
 
 		removeFromCart(item){
