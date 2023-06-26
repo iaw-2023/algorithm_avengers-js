@@ -27,7 +27,7 @@
                 </td>
                 <td>
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example" label="Talle" required>
-                        <option v-for="talle in item.talles" :key="talle" :value="talle"> {{ talle }}</option>
+                        <option v-for="talle in item.talles.split(',')" :key="talle" :value="talle"> {{ talle }}</option>
                     </select>
                 </td>
                 <td>${{ item.precio }}</td>
