@@ -33,13 +33,13 @@
                 <td>${{ item.precio }}</td>
                 <td>${{ item.precio * item.quantity }} </td>
                 <td>
-                    <button @click="data.removeFromCart(item)" class="btn btn-danger btn-sm">Eliminar</button>
+                    <button @click="data.removeFromCart(item)" class="btn btn-danger btn-sm"><v-icon name="bi-cart-dash" /> Eliminar</button>
                 </td>
             </tr>
         </tbody>
     </table>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-primary btn-lg" type="button">Comprar</button>
+        <button class="btn btn-primary btn-lg" type="button"><v-icon name="bi-cart-check" /> Comprar</button>
     </div>
 </template>
 
@@ -53,5 +53,6 @@
 #imagen{
     width:auto;
     max-height: 100px;
+    text-align: center;
 }
 </style>

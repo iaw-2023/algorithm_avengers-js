@@ -19,7 +19,7 @@ import { RouterLink, RouterView } from 'vue-router'
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                        <RouterLink to="/carrito" class="nav-link active">Carrito</RouterLink>
+                        <RouterLink to="/carrito" class="nav-link active"> <v-icon name="bi-cart" />Carrito</RouterLink>
                     </li>
                     <li class="nav-item">
                         <RouterLink to="/" class="nav-link active">Home</RouterLink>
