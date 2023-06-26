@@ -37,8 +37,10 @@
                 </td>
             </tr>
         </tbody>
-
     </table>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-primary btn-lg" type="button">Comprar</button>
+    </div>
 </template>
 
 <script setup>
