@@ -1,5 +1,8 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+    import { RouterLink, RouterView } from 'vue-router'
+    import { useCartStore } from '../stores/CartStore';
+
+    const cartStore = useCartStore();
 </script>
 
 <template>
@@ -8,8 +11,18 @@ import { RouterLink, RouterView } from 'vue-router'
             <a id="logo" class="navbar-brand text-center" href="/home">
                 <img src="https://manosargentinas.com/inicio/wp-content/uploads/2022/04/logo_new1.png" alt="Logo" class="d-inline-block align-text-top">
             </a>
+            <span class="navbar-text">
+                <div id="carrito">
+                    <RouterLink to="/carrito" class="nav-link active position-relative">
+                        <v-icon name="bi-cart" scale="1.5" animation="wrench" hover />
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" :hidden="cartStore.cartItemsSize == 0">
+                            {{ cartStore.cartItemsSize }}
+                        </span>
+                    </RouterLink>
+                </div>
+            </span>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
             <div class="offcanvas-header">
@@ -18,9 +31,6 @@ import { RouterLink, RouterView } from 'vue-router'
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item">
-                        <RouterLink to="/carrito" class="nav-link active"> <v-icon name="bi-cart" /> Carrito</RouterLink>
-                    </li>
                     <li class="nav-item">
                         <RouterLink to="/" class="nav-link active">Home</RouterLink>
                     </li>
@@ -54,5 +64,9 @@ import { RouterLink, RouterView } from 'vue-router'
     text-align: center;
     display: block;
     margin:auto;
+}
+
+#carrito{
+    margin-right: 1.5rem;
 }
 </style>
