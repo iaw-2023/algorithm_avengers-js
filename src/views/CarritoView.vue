@@ -60,7 +60,7 @@
         </tbody>
     </table>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-primary btn-lg" @click="comprar()" type="button"><v-icon name="bi-cart-check" /> Comprar</button>
+        <button class="btn btn-primary btn-lg" @click="comprar()" :disabled="data.cartItemsSize == 0" type="button"><v-icon name="bi-cart-check" scale="1.5"/> Comprar</button>
     </div>
 </template>
 
