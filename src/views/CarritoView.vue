@@ -27,7 +27,7 @@
                 </td>
                 <td>
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example" label="Talle" required>
-                        <option v-for="talle in item.talles.split(',')" :key="talle" :value="talle"> {{ talle }}</option>
+                        <option v-for="talle in item.talles.split(',')" :key="talle" :value="talle" @click="data.selectTalle(item, talle)"> {{ talle }}</option>
                     </select>
                 </td>
                 <td>${{ item.precio }}</td>
@@ -36,10 +36,27 @@
                     <button @click="data.removeFromCart(item)" class="btn btn-danger btn-sm"><v-icon name="bi-cart-dash" /> Eliminar</button>
                 </td>
             </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Ingrese su e-mail">
+                    </div>
+                </td>
+                <td></td>
+                <td></td>
+                <td><p class="fw-bold">Total</p>
+                </td>
+                <td>
+                    <p class="fw-bold">${{ (data.cartItems.reduce((acc,item) => acc += item.precio * item.quantity,0)).toFixed(2) }}</p>
+                </td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-primary btn-lg" type="button"><v-icon name="bi-cart-check" /> Comprar</button>
+        <button class="btn btn-primary btn-lg" @click="comprar()" type="button"><v-icon name="bi-cart-check" /> Comprar</button>
     </div>
 </template>
 
@@ -47,6 +64,37 @@
     import { useCartStore } from '../stores/CartStore';
 
     const data = useCartStore();
+
+    let precio_total = 0;
+
+    const methods = {
+        
+    };
+
+    function comprar(){
+        let detalle = [];
+        data.getCartItems.forEach(item => {
+            detalle.push(
+                JSON.stringify({
+                    id_producto: item.id,
+                    talle: item.talle_seleccionado, 
+                    cantidad: item.quantity
+                })
+            );
+        });
+
+        const emailCliente = JSON.stringify({email_cliente: 'juan_example@iaw.com'})
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: {
+                email_cliente: 'juan_example@iaw.com',
+                detalle: detalle
+            }
+        };
+        console.log(requestOptions);
+        fetch('http://127.0.0.1:8000/rest/compras', requestOptions);
+    }
 </script>
 
 <style>

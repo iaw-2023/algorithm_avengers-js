@@ -21,6 +21,7 @@ export const useCartStore = defineStore("CartStore", {
 		addToCart(item){
 			this.cartItems.push(item);
 			this.cartItems[this.cartItems.length-1].quantity = 1;
+			this.cartItems[this.cartItems.length-1].talle_seleccionado = item.talles.split(',')[0];
 		},
 
 		incrementQty(item){
@@ -35,6 +36,13 @@ export const useCartStore = defineStore("CartStore", {
 				if(this.cartItems[index].quantity > 1){
 					this.cartItems[index].quantity -= 1;
 				}
+			}
+		},
+
+		selectTalle(item, talle){
+			let index = this.cartItems.findIndex(product => product.id === item.id);
+			if(index !== -1){
+				this.cartItems[index].talle_seleccionado = talle;
 			}
 		},
 
