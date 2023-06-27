@@ -41,7 +41,11 @@
                 <td></td>
                 <td>
                     <div class="mb-3">
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Ingrese su e-mail">
+                        <input type="email" 
+                            class="form-control" 
+                            id="exampleFormControlInput1" 
+                            placeholder="Ingrese su e-mail" 
+                            v-model="emailCliente">
                     </div>
                 </td>
                 <td></td>
@@ -65,35 +69,42 @@
 
     const data = useCartStore();
 
-    let precio_total = 0;
+    let emailCliente;
 
     const methods = {
         
     };
 
     function comprar(){
-        let detalle = [];
-        data.getCartItems.forEach(item => {
-            detalle.push(
-                JSON.stringify({
-                    id_producto: item.id,
-                    talle: item.talle_seleccionado, 
-                    cantidad: item.quantity
-                })
-            );
-        });
+        if(verificarMail(emailCliente)){
+            let detalle = [];
+            data.getCartItems.forEach(item => {
+                detalle.push(
+                    {
+                    "producto_id": item.id,
+                    "talle": item.talle_seleccionado, 
+                    "cantidad": item.quantity
+                    }
+                )
+            });
 
-        const emailCliente = JSON.stringify({email_cliente: 'juan_example@iaw.com'})
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: {
-                email_cliente: 'juan_example@iaw.com',
-                detalle: detalle
-            }
-        };
-        console.log(requestOptions);
-        fetch('http://127.0.0.1:8000/rest/compras', requestOptions);
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email_cliente: emailCliente,
+                    detalle: detalle
+                })
+            };
+            console.log(requestOptions);
+            fetch('http://127.0.0.1:8000/rest/compras', requestOptions);
+        }else{
+            console.log("ERROR!")
+        }
+    }
+
+    function verificarMail(email){
+        return true;
     }
 </script>
 
