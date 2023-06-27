@@ -96,8 +96,10 @@
                     detalle: detalle
                 })
             };
-            console.log(requestOptions);
+            
             fetch('http://127.0.0.1:8000/rest/compras', requestOptions);
+
+            data.vaciarCart();
         }else{
             console.log("ERROR!")
         }

@@ -48,6 +48,10 @@ export const useCartStore = defineStore("CartStore", {
 
 		removeFromCart(item){
 			this.cartItems = this.cartItems.filter(product => product.id !== item.id);
+		},
+
+		vaciarCart(){
+			this.cartItems = [];
 		}
 	}
 })
