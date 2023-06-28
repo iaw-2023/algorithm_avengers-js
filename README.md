@@ -1,35 +1,9 @@
-# algorithm_avengers-js
+# Tienda Online Manos Argentinas 🙌️🇦🇷️
 
-This template should help get you started developing with Vue 3 in Vite.
+Nuestra ropa no te cambia, te muestra tal cual sos
 
-## Recommended IDE Setup
+## Links
+Link a [deploy en Vercel](https://algorithm-avengers-js.vercel.app)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+## Info
+Este proyecto fue desarrollado en Vue 3 por la comisión Algorithm Avengers bajo la licencia GPL v3

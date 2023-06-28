@@ -50,7 +50,7 @@
 				<v-icon name="md-copyright" /> GPL v3
 			</li>
 			<li>
-				Hecho en 🇦🇷️ con ❤️
+				Hecho en 🇦🇷️ con ❤️ (2023)
 			</li>
 		</ul>
 	</div>
