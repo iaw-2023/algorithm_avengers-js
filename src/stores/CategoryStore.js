@@ -18,7 +18,10 @@ export const useCategoryStore = defineStore("CategoryStore", {
 		loadCategorias(){
 			fetch("http://127.0.0.1:8000/rest/categorias")
 				.then((response) => response.json())
-				.then((data) => (this.categorias = data.data));
+				.then((data) => {
+					this.categorias = data.data;
+				})
+				.catch((error) => console.log(error));
 		},
 
 		addCategoria(categoria){

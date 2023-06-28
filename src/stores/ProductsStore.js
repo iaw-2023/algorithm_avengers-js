@@ -23,7 +23,24 @@ export const useProductsStore = defineStore("ProductsStore", {
                     this.productos = data.data;
                     this.productosAll = data.data;
                 })
-                .catch((error) => console.log(error));            
+                .catch((error) => console.log(error));
+/*
+
+            fetch("http://127.0.0.1:8000/rest/categorias")
+				.then((response_cat) => response_cat.json())
+				.then((data_cat) => {
+					let categorias = data_cat.data;
+                    categorias.forEach(cat => {
+                        fetch("http://127.0.0.1:8000/rest/categorias/" + cat.id + "/productos")
+                            .then((response_prod) => response_prod.json())
+                            .then((data_prod) => {
+                                this.productosByCat.splice(cat.id, 0, data_prod);
+                                console.log("Insertado cat.id = " + cat.id);
+                                console.log(this.productosByCat[cat.id]);
+                            })
+                    });
+				})
+				.catch((error) => console.log(error));*/
         },
 
 		setProductos(newProductos){
@@ -31,7 +48,16 @@ export const useProductsStore = defineStore("ProductsStore", {
 		},
 
 		setProductosByCat(id){
-            this.productos = productosByCat[id];
-        }
+            fetch("http://127.0.0.1:8000/rest/categorias/"+id+"/productos")
+				.then((response) => response.json())
+				.then((data) => {
+                    this.productos = data.data;
+                })
+                .catch((error) => console.log(error));
+        },
+
+        setAllProductos(){
+			this.productos = this.productosAll;
+		},
 	}
 })
