@@ -34,8 +34,6 @@ export const useProductsStore = defineStore("ProductsStore", {
                             .then((response_prod) => response_prod.json())
                             .then((data_prod) => {
                                 this.productosByCat[cat.id] = data_prod;
-                                console.log("Insertado cat.id = " + cat.id);
-                                console.log(this.productosByCat);
                             })
                     });
 				})
@@ -47,12 +45,7 @@ export const useProductsStore = defineStore("ProductsStore", {
 		},
 
 		setProductosByCat(id){
-            fetch("http://127.0.0.1:8000/rest/categorias/"+id+"/productos")
-				.then((response) => response.json())
-				.then((data) => {
-                    this.productos = data.data;
-                })
-                .catch((error) => console.log(error));
+            this.productos = this.productosByCat[id];
         },
 
         setAllProductos(){

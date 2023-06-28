@@ -18,7 +18,8 @@ export const useCategoryStore = defineStore("CategoryStore", {
 			fetch("http://127.0.0.1:8000/rest/categorias")
 				.then((response) => response.json())
 				.then((data) => {
-					this.categorias = data.data;
+					let lista = data.data;
+					this.categorias = lista.slice().sort((a,b) => a.nombre.localeCompare(b.nombre));
 				})
 				.catch((error) => console.log(error));
 		}
