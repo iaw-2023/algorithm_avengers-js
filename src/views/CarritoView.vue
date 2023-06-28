@@ -13,27 +13,27 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="item in data.getCartItems" :key="item.id">
+            <tr v-for="item in cartStore.getCartItems" :key="item.id">
                 <th scope="row">{{ item.id }}</th>
                 <td><img :src="item.imagen" :alt="item.nombre" class="img-thumbnail rounded" id="imagen"></td>
                 <td>{{ item.nombre }}</td>
                 <td>
-                    <button @click="data.decrementQty(item)" class="btn btn-primary btn-sm"> - </button>
+                    <button @click="cartStore.decrementQty(item)" class="btn btn-primary btn-sm"> - </button>
                     <span>
                         {{item.quantity}}
                     </span>
-                    <button @click="data.incrementQty(item)" class="btn btn-primary btn-sm"> + </button>
+                    <button @click="cartStore.incrementQty(item)" class="btn btn-primary btn-sm"> + </button>
                     
                 </td>
                 <td>
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example" label="Talle" required>
-                        <option v-for="talle in item.talles.split(',')" :key="talle" :value="talle" @click="data.selectTalle(item, talle)"> {{ talle }}</option>
+                        <option v-for="talle in item.talles.split(',')" :key="talle" :value="talle" @click="cartStore.selectTalle(item, talle)"> {{ talle }}</option>
                     </select>
                 </td>
                 <td>${{ item.precio }}</td>
                 <td>${{ item.precio * item.quantity }} </td>
                 <td>
-                    <button @click="data.removeFromCart(item)" class="btn btn-danger btn-sm"><v-icon name="bi-cart-dash" /> Eliminar</button>
+                    <button @click="cartStore.removeFromCart(item)" class="btn btn-danger btn-sm"><v-icon name="bi-cart-dash" /> Eliminar</button>
                 </td>
             </tr>
             <tr>
@@ -55,21 +55,21 @@
                 <td><p class="fw-bold">Total</p>
                 </td>
                 <td>
-                    <p class="fw-bold">${{ (data.cartItems.reduce((acc,item) => acc += item.precio * item.quantity,0)).toFixed(2) }}</p>
+                    <p class="fw-bold">${{ (cartStore.cartItems.reduce((acc,item) => acc += item.precio * item.quantity,0)).toFixed(2) }}</p>
                 </td>
                 <td></td>
             </tr>
         </tbody>
     </table>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-primary btn-lg" @click="comprar()" :disabled="(data.cartItemsSize == 0) || !emailValido" type="button"><v-icon name="bi-cart-check" scale="1.5"/> Comprar</button>
+        <button class="btn btn-primary btn-lg" @click="comprar()" :disabled="(cartStore.cartItemsSize == 0) || !emailValido" type="button"><v-icon name="bi-cart-check" scale="1.5"/> Comprar</button>
     </div>
 </template>
 
 <script setup>
     import { useCartStore } from '../stores/CartStore';
 
-    const data = useCartStore();
+    const cartStore = useCartStore();
 
     let emailCliente;
     let emailValido = false;
@@ -80,7 +80,7 @@
 
     function comprar(){
         let detalle = [];
-        data.getCartItems.forEach(item => {
+        cartStore.getCartItems.forEach(item => {
             detalle.push(
                 {
                 "producto_id": item.id,
@@ -102,7 +102,7 @@
         fetch('http://127.0.0.1:8000/rest/compras', requestOptions);
 
         emailCliente = "";
-        data.vaciarCart();
+        cartStore.vaciarCart();
     }
 
     function verificarMail(){
