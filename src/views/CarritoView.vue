@@ -62,18 +62,33 @@
         </tbody>
     </table>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-primary btn-lg" @click="comprar()" :disabled="botonHabilitado" type="button"><v-icon name="bi-cart-check" scale="1.5"/> Comprar</button>
+        <button class="btn btn-primary btn-lg" @click="comprar()" v-bind:disabled="deshabilitarBoton" type="button"><v-icon name="bi-cart-check" scale="1.5"/> Comprar</button>
     </div>
+    <p>
+        {{ deshabilitarBoton }}
+    </p>
 </template>
 
 <script setup>
     import { useCartStore } from '../stores/CartStore';
+    import {ref, computed} from 'vue';
 
     const cartStore = useCartStore();
 
     let emailCliente = "";
-    let emailValido = true; // después cambiar
-    let botonHabilitado = (cartStore.cartItemsSize == 0) || !emailValido;
+    const emailValido = ref(false); 
+
+
+    function verificarMail(){
+        const res = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        emailValido.value = res.test(String(emailCliente).toLowerCase());
+        console.log("condicion :" + ((cartStore.cartItemsSize == 0) || !emailValido.value));
+        console.log(deshabilitarBoton.value);
+    };
+
+    let deshabilitarBoton = computed( () => {
+            return ((cartStore.cartItemsSize == 0) || !emailValido.value);
+    });
 
     function comprar(){
         let detalle = [];
@@ -100,15 +115,6 @@
 
         emailCliente = "";
         cartStore.vaciarCart();
-    }
-
-    function verificarMail(){
-        const res = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-        emailValido = res.test(String(emailCliente).toLowerCase());
-        if(emailValido){
-
-            console.log("Email valido");
-        }
     }
 </script>
 
