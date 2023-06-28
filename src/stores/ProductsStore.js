@@ -17,7 +17,7 @@ export const useProductsStore = defineStore("ProductsStore", {
 	
 	actions: {
         loadProductos(){
-            fetch("http://127.0.0.1:8000/rest/productos")
+            fetch("https://algorithm-avengers-laravel.vercel.app/rest/productos")
 				.then((response) => response.json())
 				.then((data) => {
                     this.productos = data.data;
@@ -25,12 +25,12 @@ export const useProductsStore = defineStore("ProductsStore", {
                 })
                 .catch((error) => console.log(error));
 
-            fetch("http://127.0.0.1:8000/rest/categorias")
+            fetch("https://algorithm-avengers-laravel.vercel.app/rest/categorias")
 				.then((response_cat) => response_cat.json())
 				.then((data_cat) => {
 					let categorias = data_cat.data;
                     categorias.forEach(cat => {
-                        fetch("http://127.0.0.1:8000/rest/categorias/" + cat.id + "/productos")
+                        fetch("https://algorithm-avengers-laravel.vercel.app/rest/categorias/" + cat.id + "/productos")
                             .then((response_prod) => response_prod.json())
                             .then((data_prod) => {
                                 this.productosByCat[cat.id] = data_prod;

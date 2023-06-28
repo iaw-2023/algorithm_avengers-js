@@ -15,7 +15,7 @@ export const useCategoryStore = defineStore("CategoryStore", {
 	
 	actions: {
 		loadCategorias(){
-			fetch("http://127.0.0.1:8000/rest/categorias")
+			fetch("https://algorithm-avengers-laravel.vercel.app/rest/categorias")
 				.then((response) => response.json())
 				.then((data) => {
 					let lista = data.data;

@@ -130,7 +130,7 @@
             })
         };
         
-        fetch('http://127.0.0.1:8000/rest/compras', requestOptions);
+        fetch('https://algorithm-avengers-laravel.vercel.app/rest/compras', requestOptions);
 
         emailCliente = "";
         cartStore.vaciarCart();

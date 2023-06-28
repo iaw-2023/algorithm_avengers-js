@@ -40,6 +40,7 @@
 #foto {
     width:auto;
     max-height: 250px;
+    max-width: 250px;
 }
 
 #card-cuerpo{
