@@ -14,7 +14,6 @@ export const useCategoryStore = defineStore("CategoryStore", {
 	},
 	
 	actions: {
-
 		loadCategorias(){
 			fetch("http://127.0.0.1:8000/rest/categorias")
 				.then((response) => response.json())
@@ -22,10 +21,6 @@ export const useCategoryStore = defineStore("CategoryStore", {
 					this.categorias = data.data;
 				})
 				.catch((error) => console.log(error));
-		},
-
-		addCategoria(categoria){
-			this.categorias[categoria.id] = categoria.nombre;
 		}
 	}
 })
