@@ -45,7 +45,9 @@
                             class="form-control" 
                             id="exampleFormControlInput1" 
                             placeholder="Ingrese su e-mail" 
-                            v-model="emailCliente">
+                            v-model="emailCliente"
+                            v-on:input="verificarMail()"
+                            >
                     </div>
                 </td>
                 <td></td>
@@ -60,7 +62,7 @@
         </tbody>
     </table>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-primary btn-lg" @click="comprar()" :disabled="data.cartItemsSize == 0" type="button"><v-icon name="bi-cart-check" scale="1.5"/> Comprar</button>
+        <button class="btn btn-primary btn-lg" @click="comprar()" :disabled="(data.cartItemsSize == 0) || !emailValido" type="button"><v-icon name="bi-cart-check" scale="1.5"/> Comprar</button>
     </div>
 </template>
 
@@ -70,43 +72,42 @@
     const data = useCartStore();
 
     let emailCliente;
+    let emailValido = false;
 
     const methods = {
         
     };
 
     function comprar(){
-        if(verificarMail(emailCliente)){
-            let detalle = [];
-            data.getCartItems.forEach(item => {
-                detalle.push(
-                    {
-                    "producto_id": item.id,
-                    "talle": item.talle_seleccionado, 
-                    "cantidad": item.quantity
-                    }
-                )
-            });
+        let detalle = [];
+        data.getCartItems.forEach(item => {
+            detalle.push(
+                {
+                "producto_id": item.id,
+                "talle": item.talle_seleccionado, 
+                "cantidad": item.quantity
+                }
+            )
+        });
 
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email_cliente: emailCliente,
-                    detalle: detalle
-                })
-            };
-            
-            fetch('http://127.0.0.1:8000/rest/compras', requestOptions);
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email_cliente: emailCliente,
+                detalle: detalle
+            })
+        };
+        
+        fetch('http://127.0.0.1:8000/rest/compras', requestOptions);
 
-            data.vaciarCart();
-        }else{
-            console.log("ERROR!")
-        }
+        emailCliente = "";
+        data.vaciarCart();
     }
 
-    function verificarMail(email){
-        return true;
+    function verificarMail(){
+        const res = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        emailValido = res.test(String(emailCliente).toLowerCase());
     }
 </script>
 
