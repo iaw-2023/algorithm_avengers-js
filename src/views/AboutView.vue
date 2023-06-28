@@ -1,11 +1,59 @@
 <template>
-  <div class="about">
-    <h1>QUIÉNES SOMOS</h1>
-    <p>Es una locura pensar que nos conocemos absolutamente, ponele que sepa quién soy y te lo voy a decir… jajajajaj. Con la marca es otra cosa, detrás de cada cosa hay una persona y en este caso soy yo, Gustavo Zuviria un pibe de barrio…</p>
-    <p>No sé cómo describir nuestra marca sin describirme a mi… la realidad es que somos casi lo mismo pero me parece que lo más alucinante es que te des cuenta vos solo de quiénes somos.</p>
-    <p>Lo que sí estoy seguro es que no somos giles ni modernos, ni vamos detrás de un imaginario con protocolo de millonarios…</p>
-    <p>Somos bastante menos de lo que te imaginas, sólo eso somos…</p>
-  </div>
+  	<div class="about">
+		<p class="lead">
+			Esta página fue desarrollada como segunda parte de un proyecto universitario por el equipo Algorithm Avengers.
+		</p>
+		<p>
+			La materia es <em>Ingeniería de Aplicaciones Web</em>, perteneciente al 
+			<a href="https://cs.uns.edu.ar/~devcs/" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Departamento de Ciencias e Ingeniería de la Computación</a>
+			de la <a href="https://uns.edu.ar/" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Universidad Nacional del Sur</a>
+		</p>
+		<p>
+			El equipo Algorithm Avengers está conformado por David López y Silvestre Migliaro
+		</p>
+
+		<ul class="list-unstyled">
+			<li>
+				Links útiles
+			</li>
+			<li>
+				<v-icon name="io-logo-vercel" />
+				<a href="https://algorithm-avengers-laravel.vercel.app/" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">	
+					Link a primera parte del proyecto
+				</a>
+				
+			</li>
+			<li>
+				<v-icon name="bi-github" />
+				<a href="https://github.com/iaw-2023/algorithm_avengers-laravel" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">	
+					Repositorio de GitHub (1ra parte)
+				</a>
+			</li>
+			<li>
+				<v-icon name="bi-github" />
+				<a href="https://github.com/iaw-2023/algorithm_avengers-js" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">	
+					Repositorio de GitHub (2da parte)
+				</a>
+			</li>
+			<li>
+				<v-icon name="hi-mail" />
+				<a href="mailto:dalo_vidpez@hotmail.com.ar" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
+					Contacto
+				</a>
+			</li>
+		</ul>
+		<ul class="list-unstyled">
+			<li>
+				<v-icon name="vi-file-type-vue" /> Hecho con Vue 3 		
+			</li>
+			<li>
+				<v-icon name="md-copyright" /> GPL v3
+			</li>
+			<li>
+				Hecho en 🇦🇷️ con ❤️
+			</li>
+		</ul>
+	</div>
 </template>
 
 <style>

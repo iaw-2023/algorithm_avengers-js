@@ -7,11 +7,11 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { OhVueIcon, addIcons } from 'oh-vue-icons'
-import { BiCartPlus, BiCartDash, BiCart, BiCartCheck } from "oh-vue-icons/icons"
+import { BiCartPlus, BiCartDash, BiCart, BiCartCheck, BiGithub, IoLogoVercel, HiMail, MdCopyright, ViFileTypeVue } from "oh-vue-icons/icons"
 import { createPinia } from 'pinia'
 
 
-addIcons(BiCartPlus, BiCartDash, BiCart, BiCartCheck)
+addIcons(BiCartPlus, BiCartDash, BiCart, BiCartCheck, BiGithub, IoLogoVercel, HiMail, MdCopyright, ViFileTypeVue)
 
 const pinia = createPinia()
 const app = createApp(App)

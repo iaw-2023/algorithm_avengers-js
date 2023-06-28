@@ -53,13 +53,13 @@
                             <ul class="dropdown-menu dropdown-menu-dark">
                                 <li @click="selectTodosProductos()">
                                     <RouterLink to="/productos" class="dropdown-item">
-                                        Todos los productos <span class="badge text-bg-secondary">{{ productsStore.getProductosAllSize() }}</span>
+                                        <span class="badge text-bg-secondary">{{ productsStore.getProductosAllSize() }}</span> Todos los productos
                                     </RouterLink>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li v-for="cat in categoryStore.getCategorias" :key="cat.id" @click="selectCategoria(cat.id)">
                                     <RouterLink to="/productos" class="dropdown-item">
-                                        {{ cat.nombre }} <span class="badge text-bg-secondary">{{ productsStore.getProductosByCatSize(cat.id) }}</span>
+                                        <span class="badge text-bg-secondary">{{ productsStore.getProductosByCatSize(cat.id) }}</span> {{ cat.nombre }}
                                     </RouterLink>
                                 </li>
                             </ul>
