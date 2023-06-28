@@ -51,5 +51,17 @@ export const useProductsStore = defineStore("ProductsStore", {
         setProductosAll(){
 			this.productos = this.productosAll;
 		},
+
+        getProductosAllSize(){
+            return this.productosAll.length;
+        },
+
+        getProductosByCatSize(id){
+            let toReturn = 0;
+            if(typeof this.productosByCat[id] !== 'undefined'){
+                toReturn = this.productosByCat[id].length
+            }
+            return toReturn;
+        }
 	}
 })
