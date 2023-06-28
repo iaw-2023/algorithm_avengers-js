@@ -4,9 +4,6 @@ export const useCartStore = defineStore("CartStore", {
 	state: () => {
     	return{
 			cartItems: [],
-			productos: [],
-			productosAll: [],
-			productosByCat: []
 		}
   	},
 
@@ -17,10 +14,6 @@ export const useCartStore = defineStore("CartStore", {
 
 		cartItemsSize(){
 			return this.cartItems.length;
-		},
-
-		getProductos(){
-			return this.productos;
 		}
 	},
 	

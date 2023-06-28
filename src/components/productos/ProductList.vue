@@ -1,7 +1,7 @@
 <template>
     <div class="container text-center">
         <div class="row justify-content-evenly">
-            <div class="col" v-for="prod in data.getProductos" :key="prod.id">
+            <div class="col" v-for="prod in productsStore.getProductos" :key="prod.id">
                 <ProductCard 
                     class="card"
                     :prod=prod
@@ -13,10 +13,12 @@
 
 
 <script setup>
-    import { useCartStore } from '../../stores/CartStore';
+    import { useProductsStore } from '../../stores/ProductsStore';
     import ProductCard from './ProductCard.vue';
 
-    const data = useCartStore();
+    const productsStore = useProductsStore();
+
+    console.log(productsStore.getProductos);
 </script>
 
 <style>
