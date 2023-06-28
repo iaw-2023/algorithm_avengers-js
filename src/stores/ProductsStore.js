@@ -24,7 +24,6 @@ export const useProductsStore = defineStore("ProductsStore", {
                     this.productosAll = data.data;
                 })
                 .catch((error) => console.log(error));
-/*
 
             fetch("http://127.0.0.1:8000/rest/categorias")
 				.then((response_cat) => response_cat.json())
@@ -34,13 +33,13 @@ export const useProductsStore = defineStore("ProductsStore", {
                         fetch("http://127.0.0.1:8000/rest/categorias/" + cat.id + "/productos")
                             .then((response_prod) => response_prod.json())
                             .then((data_prod) => {
-                                this.productosByCat.splice(cat.id, 0, data_prod);
+                                this.productosByCat[cat.id] = data_prod;
                                 console.log("Insertado cat.id = " + cat.id);
-                                console.log(this.productosByCat[cat.id]);
+                                console.log(this.productosByCat);
                             })
                     });
 				})
-				.catch((error) => console.log(error));*/
+				.catch((error) => console.log(error));
         },
 
 		setProductos(newProductos){

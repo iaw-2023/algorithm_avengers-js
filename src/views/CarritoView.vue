@@ -62,7 +62,7 @@
         </tbody>
     </table>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-primary btn-lg" @click="comprar()" :disabled="(cartStore.cartItemsSize == 0) || !emailValido" type="button"><v-icon name="bi-cart-check" scale="1.5"/> Comprar</button>
+        <button class="btn btn-primary btn-lg" @click="comprar()" :disabled="botonHabilitado" type="button"><v-icon name="bi-cart-check" scale="1.5"/> Comprar</button>
     </div>
 </template>
 
@@ -71,12 +71,9 @@
 
     const cartStore = useCartStore();
 
-    let emailCliente;
-    let emailValido = false;
-
-    const methods = {
-        
-    };
+    let emailCliente = "";
+    let emailValido = true; // después cambiar
+    let botonHabilitado = (cartStore.cartItemsSize == 0) || !emailValido;
 
     function comprar(){
         let detalle = [];
@@ -108,6 +105,10 @@
     function verificarMail(){
         const res = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         emailValido = res.test(String(emailCliente).toLowerCase());
+        if(emailValido){
+
+            console.log("Email valido");
+        }
     }
 </script>
 
