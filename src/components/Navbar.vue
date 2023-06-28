@@ -2,15 +2,9 @@
     import { RouterLink, RouterView } from 'vue-router'
     import { useCartStore } from '../stores/CartStore';
     import { useCategoryStore } from '../stores/CategoryStore';
-    import { useProductsStore } from '../stores/ProductsStore';
 
     const cartStore = useCartStore();
     const categoryStore = useCategoryStore();
-    const productsStore = useProductsStore();
-
-    function selectCategoria(id){
-        productsStore.setProductosByCat(id);
-    }
 </script>
 
 <template>
@@ -50,7 +44,7 @@
                             <li><RouterLink to="/productos" class="dropdown-item">Todos los productos</RouterLink></li>
                             <li><hr class="dropdown-divider"></li>
                             <li v-for="cat in categoryStore.getCategorias" :key="cat.id">
-                                <RouterLink to="/productos" class="dropdown-item" :on-click="selectCategoria(cat.id)">{{ cat.nombre }}</RouterLink>
+                                <RouterLink to="/productos" class="dropdown-item">{{ cat.nombre }}</RouterLink>
                             </li>
                         </ul>
                     </li>
