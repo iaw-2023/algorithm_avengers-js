@@ -61,12 +61,33 @@
             </tr>
         </tbody>
     </table>
+
+    <!-- Button trigger modal -->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-primary btn-lg" @click="comprar()" v-bind:disabled="deshabilitarBoton" type="button"><v-icon name="bi-cart-check" scale="1.5"/> Comprar</button>
+        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" v-bind:disabled="deshabilitarBoton">
+            <v-icon name="bi-cart-check" scale="1.5"/> Comprar
+        </button>
     </div>
-    <p>
-        {{ deshabilitarBoton }}
-    </p>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Terminar compra</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Desea realizar la compra?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" @click="comprar()" data-bs-dismiss="modal">Continuar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
 </template>
 
 <script setup>
@@ -82,8 +103,6 @@
     function verificarMail(){
         const res = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         emailValido.value = res.test(String(emailCliente).toLowerCase());
-        console.log("condicion :" + ((cartStore.cartItemsSize == 0) || !emailValido.value));
-        console.log(deshabilitarBoton.value);
     };
 
     let deshabilitarBoton = computed( () => {
