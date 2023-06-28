@@ -10,8 +10,10 @@
 
     function selectCategoria(id){
         productsStore.setProductosByCat(id);
-        console.log("categoria_id: " + id);
+    }
 
+    function selectTodosProductos(){
+        productsStore.setProductosAll();
     }
 </script>
 
@@ -49,7 +51,7 @@
                             Productos
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><RouterLink to="/productos" class="dropdown-item">Todos los productos</RouterLink></li>
+                            <li @click="selectTodosProductos()"><RouterLink to="/productos" class="dropdown-item">Todos los productos</RouterLink></li>
                             <li><hr class="dropdown-divider"></li>
                             <li v-for="cat in categoryStore.getCategorias" :key="cat.id" @click="selectCategoria(cat.id)">
                                 <RouterLink to="/productos" class="dropdown-item">{{ cat.nombre }}</RouterLink>

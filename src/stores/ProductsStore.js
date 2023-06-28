@@ -48,7 +48,7 @@ export const useProductsStore = defineStore("ProductsStore", {
             this.productos = this.productosByCat[id];
         },
 
-        setAllProductos(){
+        setProductosAll(){
 			this.productos = this.productosAll;
 		},
 	}
