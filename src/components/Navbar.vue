@@ -20,9 +20,9 @@
 <template>
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <a id="logo" class="navbar-brand text-center" href="/home">
+            <RouterLink to="/" id="logo">
                 <img src="https://manosargentinas.com/inicio/wp-content/uploads/2022/04/logo_new1.png" alt="Logo" class="d-inline-block align-text-top">
-            </a>
+            </RouterLink>  
             <span class="navbar-text">
                 <div id="carrito">
                     <RouterLink to="/carrito" class="nav-link active position-relative">

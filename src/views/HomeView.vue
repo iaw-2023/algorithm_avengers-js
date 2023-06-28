@@ -7,3 +7,6 @@ import Bienvenida from '../components/Bienvenida.vue'
     <Bienvenida />
   </main>
 </template>
+
+<style>
+</style>
