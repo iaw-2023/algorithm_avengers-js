@@ -21,7 +21,7 @@
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <RouterLink to="/" id="logo">
-                <img src="https://manosargentinas.com/inicio/wp-content/uploads/2022/04/logo_new1.png" alt="Logo" class="d-inline-block align-text-top">
+                <img src="https://res.cloudinary.com/drspuruy2/image/upload/v1738273320/MA_logo_ob_tb7inf.png" alt="Logo" class="d-inline-block align-text-top" style="max-width: 150px;">
             </RouterLink>  
             <span class="navbar-text">
                 <div id="carrito">
