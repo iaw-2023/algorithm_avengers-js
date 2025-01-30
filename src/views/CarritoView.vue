@@ -13,7 +13,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="item in cartStore.getCartItems" :key="item.id">
+            <tr v-for="item in cartStore.getCartItems" :key="item.cartItemId">
                 <th scope="row">{{ item.id }}</th>
                 <td><img :src="item.imagen" :alt="item.nombre" class="img-thumbnail rounded" id="imagen"></td>
                 <td>{{ item.nombre }}</td>
@@ -33,7 +33,7 @@
                 <td>${{ item.precio }}</td>
                 <td>${{ item.precio * item.quantity }} </td>
                 <td>
-                    <button @click="cartStore.removeFromCart(item)" class="btn btn-danger btn-sm"><v-icon name="bi-cart-dash" /> Eliminar</button>
+                    <button @click="cartStore.removeFromCart(item.cartItemId)" class="btn btn-danger btn-sm"><v-icon name="bi-cart-dash" /> Eliminar</button>
                 </td>
             </tr>
             <tr>
