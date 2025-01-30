@@ -19,7 +19,7 @@
                 <td>{{ item.nombre }}</td>
                 <td>
                     <button @click="cartStore.decrementQty(item)" class="btn btn-primary btn-sm"> - </button>
-                    <span>
+                    <span class="p-2">
                         {{item.quantity}}
                     </span>
                     <button @click="cartStore.incrementQty(item)" class="btn btn-primary btn-sm"> + </button>
