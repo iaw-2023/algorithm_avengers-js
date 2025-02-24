@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8000/rest'; // Replace with your Laravel API URL
 
-export const useAuthStore = defineStore('auth', {
+export const useAuthStore = defineStore('AuthStore', {
     state: () => ({
         user: JSON.parse(localStorage.getItem('user')) || null,
     }),
@@ -11,7 +11,7 @@ export const useAuthStore = defineStore('auth', {
         isAuthenticated: (state) => !!state.user,
     },
     actions: {
-        async register(name, email, password) {
+        async register(email, contrasena, nombre, telefono, domicilio) {
             await axios.post(`${API_URL}/register`, {
                 email,
                 contrasena,

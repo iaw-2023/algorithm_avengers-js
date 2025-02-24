@@ -1,12 +1,17 @@
 <script setup>
-    import { RouterLink, RouterView } from 'vue-router'
+    import { RouterLink, RouterView, useRouter } from 'vue-router'
     import { useCartStore } from '../stores/CartStore';
     import { useCategoryStore } from '../stores/CategoryStore';
     import { useProductsStore } from '../stores/ProductsStore';
+    import { ref, computed } from 'vue';
+    import { useAuthStore } from '@/stores/AuthStore';
 
     const cartStore = useCartStore();
     const categoryStore = useCategoryStore();
     const productsStore = useProductsStore();
+    // Auth store and router
+    const authStore = useAuthStore();
+    const router = useRouter();
 
     function selectCategoria(id){
         productsStore.setProductosByCat(id);
@@ -15,6 +20,33 @@
     function selectTodosProductos(){
         productsStore.setProductosAll();
     }
+
+    // Refs for form inputs
+    const email = ref('');
+    const contrasena = ref('');
+
+    // Computed properties
+    const isAuthenticated = computed(() => authStore.isAuthenticated);
+    const user = computed(() => authStore.user);
+
+    // Login handler
+    const handleLogin = async () => {
+    try {
+        await authStore.login({ email: email.value, contrasena: contrasena.value });
+        email.value = '';
+        contrasena.value = '';
+        router.push('/'); // Redirect to home after login
+    } catch (error) {
+        console.error('Login failed', error);
+    }
+    };
+
+    // Logout handler
+    const handleLogout = async () => {
+    await authStore.logout();
+    router.push('/login'); // Redirect to login after logout
+    };
+
 </script>
 
 <template>
@@ -43,6 +75,24 @@
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                        <!-- Login Form or User Info -->
+                        <div class="auth-section">
+                            <div v-if="!isAuthenticated">
+                                <form @submit.prevent="login" class="login-form">
+                                    <input v-model="email" type="email" placeholder="Email" required />
+                                    <input v-model="contrasena" type="password" placeholder="Contraseña" required />
+                                    <button type="submit">Login</button>
+                                </form>
+                                <router-link to="/register" class="register-link">Registrar</router-link>
+                            </div>
+                            <div v-else>
+                                <span>Welcome, {{ user.nombre }}</span>
+                                <button @click="logout" class="logout-button">Logout</button>
+                            </div>
+                        </div>
+                        </li>
+
                         <li class="nav-item">
                             <RouterLink to="/" class="nav-link active">Home</RouterLink>
                         </li>
