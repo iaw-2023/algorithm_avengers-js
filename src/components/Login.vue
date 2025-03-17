@@ -1,13 +1,19 @@
 <template>
     <form @submit.prevent="login">
-        <input v-model="email" type="email" placeholder="Email" required />
-        <input v-model="contrasena" type="password" placeholder="Password" required />
-        <button type="submit">Login</button>
+        <div class="px-1 pb-1">
+            <input class="form-control" v-model="email" type="email" placeholder="email" required />
+        </div>
+        <div class="px-1 pb-1">
+            <input class="form-control" v-model="contrasena" type="password" placeholder="contraseña" required />
+        </div>
+        <div class="d-flex align-items-end flex-column pe-1">
+            <button class="btn btn-primary btn-sm" type="submit">Login</button>
+        </div>
     </form>
 </template>
 
 <script>
-import { useAuthStore } from '@/stores/AuthStore';
+import { useAuthStore } from '../stores/AuthStore';
 
 export default {
     data() {
@@ -21,7 +27,8 @@ export default {
             const authStore = useAuthStore();
             try {
                 await authStore.login(this.email, this.contrasena);
-                this.$router.push('/dashboard'); // Redirect to a protected route
+                //await authStore.profile();
+                //this.$router.push('/dashboard'); // Redirect to a protected route
             } catch (error) {
                 console.error('Login failed', error);
             }

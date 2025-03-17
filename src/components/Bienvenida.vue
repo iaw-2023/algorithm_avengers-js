@@ -1,6 +1,4 @@
 <template>
-    <button @click="logout">Logout</button>
-
     <div class="text-center">
         <img class="img-fluid" src="https://res.cloudinary.com/drspuruy2/image/upload/v1738270805/1-slide-1709585080298-582898312-e57e1955b5a3e07133d3be6ada2b9b541709585081-1920-1920_de16eq.jpg" alt="Banner">
     </div>

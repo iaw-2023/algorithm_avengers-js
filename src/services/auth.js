@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8000/rest'; // Replace with your Laravel API URL
 
 const register = (name, email, password) => {
-    return axios.post(`${API_URL}/register`, {
+    return axios.post(`${API_URL}/registrar`, {
         email,
         contrasena,
         nombre,

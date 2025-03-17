@@ -5,6 +5,7 @@
     import { useProductsStore } from '../stores/ProductsStore';
     import { ref, computed } from 'vue';
     import { useAuthStore } from '@/stores/AuthStore';
+    import Login from '../components/Login.vue'
 
     const cartStore = useCartStore();
     const categoryStore = useCategoryStore();
@@ -22,15 +23,17 @@
     }
 
     // Refs for form inputs
-    const email = ref('');
-    const contrasena = ref('');
+   /*  const email = ref('');
+    const contrasena = ref(''); */
 
     // Computed properties
     const isAuthenticated = computed(() => authStore.isAuthenticated);
     const user = computed(() => authStore.user);
 
+    console.log(user);
+
     // Login handler
-    const handleLogin = async () => {
+   /*  const handleLogin = async () => {
     try {
         await authStore.login({ email: email.value, contrasena: contrasena.value });
         email.value = '';
@@ -45,7 +48,7 @@
     const handleLogout = async () => {
     await authStore.logout();
     router.push('/login'); // Redirect to login after logout
-    };
+    }; */
 
 </script>
 
@@ -79,16 +82,22 @@
                         <!-- Login Form or User Info -->
                         <div class="auth-section">
                             <div v-if="!isAuthenticated">
-                                <form @submit.prevent="login" class="login-form">
+                                <div class="d-flex justify-content-end pe-1">
+                                    <p class="me-1">¿Eres nuevo?</p>
+                                    <router-link to="/register" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
+                                        Registrarse
+                                    </router-link>
+                                </div>
+                                <Login />
+                               <!--  <form @submit.prevent="login" class="login-form">
                                     <input v-model="email" type="email" placeholder="Email" required />
                                     <input v-model="contrasena" type="password" placeholder="Contraseña" required />
                                     <button type="submit">Login</button>
-                                </form>
-                                <router-link to="/register" class="register-link">Registrar</router-link>
+                                </form> -->
                             </div>
                             <div v-else>
-                                <span>Welcome, {{ user.nombre }}</span>
-                                <button @click="logout" class="logout-button">Logout</button>
+                                <span>Bienvenido, {{ user }}</span>
+                                <button @click="logout" class="d-flex justify-content-end pe-1 btn btn-danger btn-sm">Cerrar sesión</button>
                             </div>
                         </div>
                         </li>
