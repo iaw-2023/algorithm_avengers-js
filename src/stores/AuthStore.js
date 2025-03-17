@@ -1,34 +1,46 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
-
-const API_URL = 'http://localhost:8000/rest/clientes'; // Replace with your Laravel API URL
+import apiClient from '../plugins/axios';
 
 export const useAuthStore = defineStore('AuthStore', {
     state: () => ({
-        user: JSON.parse(localStorage.getItem('user')) || null,
-        token: JSON.parse(localStorage.getItem('token')) || null,
+        user: null,
+        token: JSON.parse(localStorage.getItem('auth_token')) || null,
+        error: null,
     }),
     getters: {
         isAuthenticated: (state) => !!state.user,
     },
     actions: {
         async register(email, contrasena, nombre, telefono, domicilio) {
-            await axios.post(`${API_URL}/registrar`, {
-                email,
-                contrasena,
-                nombre,
-                telefono,
-                domicilio
-            });
+            try {
+                response = await apiClient.post('clientes/registrar', {
+                    email,
+                    contrasena,
+                    nombre,
+                    telefono,
+                    domicilio
+                });
+                this.user = response.data;
+                return response.data;
+            }catch(error){
+                this.error = error.response?.data?.message || 'Registro fallido';
+                throw error;
+            }
         },
         async login(email, contrasena) {
-            const response = await axios.post(`${API_URL}/login`, {
-                email,
-                contrasena,
-            });
-            if (response.data.token) {
+            try{
+                const response = await apiClient.post(`/clientes/login`, {
+                    email,
+                    contrasena,
+                });
                 this.token = response.data.token;
-                localStorage.setItem('token', JSON.stringify(response.data.token));
+                localStorage.setItem('authToken', this.token);
+                apiClient.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
+                await this.fetchProfile();
+                return response.data;
+            }catch(error){
+                this.error = error.response?.data?.message || 'Login fallido';
+                throw error;
             }
         },
         async profile(){
