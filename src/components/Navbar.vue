@@ -22,33 +22,10 @@
         productsStore.setProductosAll();
     }
 
-    // Refs for form inputs
-   /*  const email = ref('');
-    const contrasena = ref(''); */
-
-    // Computed properties
     const isAuthenticated = computed(() => authStore.isAuthenticated);
     const user = computed(() => authStore.user);
 
     const logout = () => authStore.logout();
-
-    // Login handler
-   /*  const handleLogin = async () => {
-    try {
-        await authStore.login({ email: email.value, contrasena: contrasena.value });
-        email.value = '';
-        contrasena.value = '';
-        router.push('/'); // Redirect to home after login
-    } catch (error) {
-        console.error('Login failed', error);
-    }
-    };
-
-    // Logout handler
-    const handleLogout = async () => {
-    await authStore.logout();
-    router.push('/login'); // Redirect to login after logout
-    }; */
 
 </script>
 
@@ -89,11 +66,6 @@
                                     </router-link>
                                 </div>
                                 <Login />
-                               <!--  <form @submit.prevent="login" class="login-form">
-                                    <input v-model="email" type="email" placeholder="Email" required />
-                                    <input v-model="contrasena" type="password" placeholder="Contraseña" required />
-                                    <button type="submit">Login</button>
-                                </form> -->
                             </div>
                             <div v-else>
                                 <span>Bienvenido, {{ user.nombre }}</span>

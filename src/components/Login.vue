@@ -27,8 +27,6 @@ export default {
             const authStore = useAuthStore();
             try {
                 await authStore.login(this.email, this.contrasena);
-                //await authStore.profile();
-                //this.$router.push('/dashboard'); // Redirect to a protected route
             } catch (error) {
                 console.error('Login failed', error);
             }
