@@ -13,6 +13,7 @@ export const useAuthStore = defineStore('AuthStore', {
     actions: {
         async register(email, contrasena, nombre, telefono, domicilio) {
             try {
+                console.log(`Registrando usuario\n email: ${email}\n contraseña: ${contrasena}\n nombre: ${nombre}\n telefono: ${telefono}\n domicilio: ${domicilio}`);
                 response = await apiClient.post('clientes/registrar', {
                     email,
                     contrasena,
@@ -55,7 +56,6 @@ export const useAuthStore = defineStore('AuthStore', {
         },
         async logout() {
             try{
-                console.log(`Cerrando sesión de ${this.user.nombre}`);
                 await apiClient.post('/clientes/logout');
                 this.user = null;
                 this.token = null;
