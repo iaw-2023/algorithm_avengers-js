@@ -30,7 +30,7 @@
     const isAuthenticated = computed(() => authStore.isAuthenticated);
     const user = computed(() => authStore.user);
 
-    console.log(user);
+    const logout = () => authStore.logout();
 
     // Login handler
    /*  const handleLogin = async () => {
@@ -96,7 +96,7 @@
                                 </form> -->
                             </div>
                             <div v-else>
-                                <span>Bienvenido, {{ user }}</span>
+                                <span>Bienvenido, {{ user.nombre }}</span>
                                 <button @click="logout" class="d-flex justify-content-end pe-1 btn btn-danger btn-sm">Cerrar sesión</button>
                             </div>
                         </div>

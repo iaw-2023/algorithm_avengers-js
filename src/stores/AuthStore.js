@@ -29,14 +29,14 @@ export const useAuthStore = defineStore('AuthStore', {
         },
         async login(email, contrasena) {
             try{
-                const response = await apiClient.post(`/clientes/login`, {
+                const response = await apiClient.post('/clientes/login', {
                     email,
                     contrasena,
                 });
                 this.token = response.data.token;
                 localStorage.setItem('authToken', this.token);
                 apiClient.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
-                await this.fetchProfile();
+                await this.profile();
                 return response.data;
             }catch(error){
                 this.error = error.response?.data?.message || 'Login fallido';
@@ -44,24 +44,27 @@ export const useAuthStore = defineStore('AuthStore', {
             }
         },
         async profile(){
-            const response = await axios.post(`${API_URL}/perfil`, {}, {
-                headers: {
-                    Authorization: `Bearer ${this.token}`
-                },
-            });
-            if(response.data){
+            try {
+                const response = await apiClient.get('/clientes/perfil');
                 this.user = response.data;
-                localStorage.setItem('user', JSON.stringify(response.data));
+                return response.data;
+            } catch (error){
+                this.error = error.response?.data?.message || "Error al obtener el perfil del usuario";
+                throw error;
             }
         },
         async logout() {
-            await axios.post(`${API_URL}/logout`, {}, {
-                headers: {
-                    Authorization: `Bearer ${this.token}`,
-                },
-            });
-            this.user = null;
-            localStorage.removeItem('user');
-        },
+            try{
+                console.log(`Cerrando sesión de ${this.user.nombre}`);
+                await apiClient.post('/clientes/logout');
+                this.user = null;
+                this.token = null;
+                localStorage.removeItem('auth_token');
+                delete apiClient.defaults.headers.common['Authorization'];
+            } catch (error) {
+                this.error = error.response?.data?.message || "Logout fallido";
+                throw error;
+            }
+        }
     },
 });
