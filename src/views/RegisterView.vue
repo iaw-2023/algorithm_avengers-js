@@ -1,4 +1,8 @@
 <template>
+    <div v-if="hasError" class="alert alert-danger">
+      <p>{{ errors.value }}</p>
+    </div>
+    
     <div class="register-container">
       <h2>Crear usuario</h2>
       <form @submit.prevent="handleRegister" class="register-form">
@@ -16,7 +20,7 @@
         </div>
         <div class="mb-3">
           <label for="telefono" class="form-label">Teléfono</label>
-          <input v-model="telefono" type="tel" id="telefono" class="form-control" pattern="[0-9]" placeholder="2915743111" required/>
+          <input v-model="telefono" type="tel" id="telefono" class="form-control" pattern="^\+?[1-9][0-9]{7,14}$" placeholder="2915743111" required/>
         </div>
         <div class="mb-3">
           <label for="domicilio" class="form-label">Domicilio</label>
@@ -37,6 +41,9 @@
   import { useAuthStore } from '@/stores/AuthStore';
   import { useRouter } from 'vue-router';
   
+  const errors = ref('');
+  const hasError = ref(false);
+
   // Refs for form inputs
   const email = ref('');
   const contrasena = ref('');
@@ -62,6 +69,8 @@
       router.push('/'); // Redirect to login after successful registration
     } catch (error) {
       console.error('Registro fallido', error);
+      errors.value = error;
+      hasError = true;
     }
   };
   </script>
