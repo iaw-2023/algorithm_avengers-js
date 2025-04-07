@@ -14,14 +14,17 @@ export const useAuthStore = defineStore('AuthStore', {
         async register(email, contrasena, nombre, telefono, domicilio) {
             try {
                 console.log(`Registrando usuario\n email: ${email}\n contraseña: ${contrasena}\n nombre: ${nombre}\n telefono: ${telefono}\n domicilio: ${domicilio}`);
-                response = await apiClient.post('clientes/registrar', {
+                const response = await apiClient.post('clientes/registrar', {
                     email,
                     contrasena,
                     nombre,
                     telefono,
                     domicilio
                 });
-                this.user = response.data;
+                this.token = response.data.token;
+                localStorage.setItem('authToken', this.token);
+                apiClient.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
+                await this.profile();
                 return response.data;
             }catch(error){
                 this.error = error.response?.data?.message || 'Registro fallido';
