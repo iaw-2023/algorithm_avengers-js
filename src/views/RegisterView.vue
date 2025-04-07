@@ -33,9 +33,6 @@
         </div>
         <div>
           <button type="submit" class="btn btn-primary">Registrarse</button>
-          <p class="text-end">
-          ¿Ya tenés una cuenta? <router-link to="/login">Iniciá sesión acá</router-link>.
-          </p>
         </div>
       </form>
     </div>

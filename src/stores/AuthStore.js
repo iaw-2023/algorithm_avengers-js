@@ -51,6 +51,7 @@ export const useAuthStore = defineStore('AuthStore', {
             try {
                 const response = await apiClient.get('/clientes/perfil');
                 this.user = response.data;
+                console.log(`Perfil del usuario: ${JSON.stringify(response.data)}`);
                 return response.data;
             } catch (error){
                 this.error = error.response?.data?.message || "Error al obtener el perfil del usuario";
