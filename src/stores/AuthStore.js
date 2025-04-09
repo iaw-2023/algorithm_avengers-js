@@ -8,7 +8,7 @@ export const useAuthStore = defineStore('AuthStore', {
         error: null,
     }),
     getters: {
-        isAuthenticated: (state) => !!state.user,
+        isAuthenticated: (state) => !!state.user
     },
     actions: {
         async register(email, contrasena, nombre, telefono, domicilio) {

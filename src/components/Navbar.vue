@@ -36,13 +36,20 @@
                 <img src="https://res.cloudinary.com/drspuruy2/image/upload/v1738273320/MA_logo_ob_tb7inf.png" alt="Logo" class="d-inline-block align-text-top" style="max-width: 150px;">
             </RouterLink>  
             <span class="navbar-text">
-                <div id="carrito">
-                    <RouterLink to="/carrito" class="nav-link active position-relative">
-                        <v-icon name="bi-cart" scale="1.5" animation="wrench" hover />
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" :hidden="cartStore.cartItemsSize == 0">
-                            {{ cartStore.cartItemsSize }}
-                        </span>
-                    </RouterLink>
+                <div class="row align-items-end">
+                    <div v-if="isAuthenticated" class="col">
+                        <RouterLink to="/compras" class="nav-link active position-relative">
+                            <v-icon name="bi-handbag" scale="1.5" animation="wrench" hover inverse/>
+                        </RouterLink>
+                    </div>
+                    <div class="col me-4">
+                        <RouterLink to="/carrito" class="nav-link active position-relative">
+                            <v-icon name="bi-cart" scale="1.5" animation="wrench" hover />
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" :hidden="cartStore.cartItemsSize == 0">
+                                {{ cartStore.cartItemsSize }}
+                            </span>
+                        </RouterLink>
+                    </div>
                 </div>
             </span>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
@@ -110,9 +117,5 @@
     text-align: center;
     display: block;
     margin:auto;
-}
-
-#carrito{
-    margin-right: 1.5rem;
 }
 </style>

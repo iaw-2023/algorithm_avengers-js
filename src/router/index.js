@@ -4,6 +4,7 @@ import ProductosView from '../views/ProductosView.vue'
 import CarritoView from '../views/CarritoView.vue'
 import { useAuthStore } from '../stores/AuthStore'
 import RegisterView from '../views/RegisterView.vue'
+import ComprasView from '../views/ComprasView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,6 +36,11 @@ const router = createRouter({
       path: '/carrito',
       name: 'carrito',
       component: CarritoView
+    },
+    {
+      path: '/compras',
+      name: 'Mis compras',
+      component: ComprasView
     }
   ]
 });
