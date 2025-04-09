@@ -8,7 +8,19 @@
 
 <template>
     <h1>Tus compras, {{ user.nombre }}</h1>
-    <p>{{ user.compras }}</p>
+    <ol v-for="compra in user.compras">
+        <li>
+            <p>Id de compra: {{ compra.id }}</p>
+            <p>Precio: {{ compra.precio }}</p>
+            <p>Fecha: {{ compra.fecha }}</p>
+            <p>Productos:</p>
+            <ul>
+                <li v-for="producto in compra.detalles">
+                    {{ producto }}
+                </li>
+            </ul>
+        </li>
+    </ol>
 </template>
 
 <style>
