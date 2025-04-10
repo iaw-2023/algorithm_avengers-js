@@ -39,17 +39,7 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td>
-                    <div class="mb-3">
-                        <input type="email" 
-                            class="form-control" 
-                            id="exampleFormControlInput1" 
-                            placeholder="Ingrese su e-mail" 
-                            v-model="emailCliente"
-                            v-on:input="verificarMail()"
-                            >
-                    </div>
-                </td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td><p class="fw-bold">Total</p>
@@ -64,7 +54,7 @@
 
     <!-- Button trigger modal -->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" v-bind:disabled="deshabilitarBoton">
+        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <v-icon name="bi-cart-check" scale="1.5"/> Comprar
         </button>
     </div>
@@ -93,21 +83,11 @@
 <script setup>
     import { useCartStore } from '../stores/CartStore';
     import {ref, computed} from 'vue';
+    import { useAuthStore } from '../stores/AuthStore';
 
     const cartStore = useCartStore();
-
-    let emailCliente = "";
-    const emailValido = ref(false); 
-
-
-    function verificarMail(){
-        const res = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-        emailValido.value = res.test(String(emailCliente).toLowerCase());
-    };
-
-    let deshabilitarBoton = computed( () => {
-            return ((cartStore.cartItemsSize == 0) || !emailValido.value);
-    });
+    const authStore = useAuthStore();
+    const user = computed(() => authStore.user);
 
     function comprar(){
         let detalle = [];
@@ -125,14 +105,13 @@
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                email_cliente: emailCliente,
+                email_cliente: user.email,
                 detalle: detalle
             })
         };
         
-        fetch('https://algorithm-avengers-laravel.vercel.app/rest/compras', requestOptions);
+        fetch('127.0.0.1:8000/rest/compras', requestOptions);
 
-        emailCliente = "";
         cartStore.vaciarCart();
     }
 </script>
