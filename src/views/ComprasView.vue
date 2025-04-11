@@ -20,13 +20,13 @@
                 <div v-for="detalle in compra.detalles" class="card mb-1 mx-auto" style="max-width: 540px;">
                     <div class="row align-items-center g-0">
                         <div class="col-md-4">
-                            <img :src="detalle.productos.imagen" class="img-fluid rounded-start m-2" alt="imagen de producto">
+                            <img :src="detalle.producto.imagen" class="img-fluid rounded-start m-2" alt="imagen de producto">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">{{detalle.productos.nombre}} (x{{ detalle.cantidad }})</h5>
+                                <h5 class="card-title">{{detalle.producto.nombre}} (x{{ detalle.cantidad }})</h5>
                                 <p class="card-text"><small class="text-body-secondary">{{detalle.talle}}</small></p>
-                                <p class="card-text" id="descripcion">{{detalle.productos.descripcion}}</p>
+                                <p class="card-text" id="descripcion">{{detalle.producto.descripcion}}</p>
                             </div>
                         </div>
                     </div>
