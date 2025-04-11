@@ -24,7 +24,6 @@ export const useAuthStore = defineStore('AuthStore', {
                 this.token = response.data.token;
                 localStorage.setItem('authToken', this.token);
                 apiClient.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
-                await this.profile();
                 return response.data;
             }catch(error){
                 this.error = error.response?.data?.message || 'Registro fallido';
@@ -40,7 +39,6 @@ export const useAuthStore = defineStore('AuthStore', {
                 this.token = response.data.token;
                 localStorage.setItem('authToken', this.token);
                 apiClient.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
-                await this.profile();
                 return response.data;
             }catch(error){
                 this.error = error.response?.data?.message || 'Login fallido';

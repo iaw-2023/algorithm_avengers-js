@@ -68,6 +68,7 @@
         domicilio.value
       );
       router.push('/');
+      await authStore.profile();
     } catch (error) {
       console.error('Registro fallido', error);
       if(error.response?.status === 422){

@@ -30,6 +30,7 @@ export default {
             } catch (error) {
                 console.error('Login failed', error);
             }
+            await authStore.profile();
         },
     },
 };

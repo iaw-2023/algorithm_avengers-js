@@ -54,7 +54,7 @@
 
     <!-- Button trigger modal -->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" v-bind:disabled="deshabilitarBoton">
             <v-icon name="bi-cart-check" scale="1.5"/> Comprar
         </button>
     </div>
@@ -88,9 +88,14 @@
     const cartStore = useCartStore();
     const authStore = useAuthStore();
     const user = computed(() => authStore.user);
+    let deshabilitarBoton = computed( () => {
+        return cartStore.cartItemsSize == 0;
+    });
+
 
     function comprar(){
-        let detalle = [];
+        console.log(`CLIENTE: ${JSON.stringify(user)}`);
+        /* let detalle = [];
         cartStore.getCartItems.forEach(item => {
             detalle.push(
                 {
@@ -110,9 +115,9 @@
             })
         };
         
-        fetch('127.0.0.1:8000/rest/compras', requestOptions);
+        fetch('http://127.0.0.1:8000/rest/compras', requestOptions);
 
-        cartStore.vaciarCart();
+        cartStore.vaciarCart(); */
     }
 </script>
 
