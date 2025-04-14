@@ -9,8 +9,6 @@
         </blockquote>
     </figure>
 
-    <p>Usuario: {{ user }}</p>
-    
     <h1>QUIÉNES SOMOS</h1>
     <p>Somos bastante menos de lo que te imaginas, sólo eso somos…</p>
     <p>Es una locura pensar que nos conocemos absolutamente, ponele que sepa quién soy y te lo voy a decir… jajajajaj. Con la marca es otra cosa, detrás de cada cosa hay una persona y en este caso soy yo, Gustavo Zuviria un pibe de barrio…</p>
@@ -39,9 +37,6 @@
 <script>
 
 import { useAuthStore } from '@/stores/AuthStore';
-
-const authStore = useAuthStore();
-const user = computed(() => authStore.user);
 
 export default {
     methods: {

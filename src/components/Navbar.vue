@@ -37,8 +37,8 @@
                 <img src="https://res.cloudinary.com/drspuruy2/image/upload/v1738273320/MA_logo_ob_tb7inf.png" alt="Logo" class="d-inline-block align-text-top" style="max-width: 150px;">
             </RouterLink>  
             <span class="navbar-text">
-                <div v-if="isAuthenticated" class="row align-items-end">
-                    <div class="col">
+                <div class="row align-items-end">
+                    <div class="col" v-if="isAuthenticated" >
                         <RouterLink to="/compras" class="nav-link active position-relative">
                             <v-icon name="bi-handbag" scale="1.5" animation="wrench" hover inverse/>
                         </RouterLink>

@@ -8,6 +8,7 @@
 
 <template>
     <h1 class="mb-4">Tus compras, {{ user.nombre }}</h1>
+
     <div class="card mt-6" v-for="compra in user.compras">
         <div class="card-body m-3">
             <div class="row">

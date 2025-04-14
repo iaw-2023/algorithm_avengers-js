@@ -82,19 +82,21 @@
 
 <script setup>
     import { useCartStore } from '../stores/CartStore';
-    import {ref, computed} from 'vue';
+    import { computed } from 'vue';
     import { useAuthStore } from '../stores/AuthStore';
-
-    const cartStore = useCartStore();
+    
     const authStore = useAuthStore();
     const user = computed(() => authStore.user);
+
+    const cartStore = useCartStore();
+    
     let deshabilitarBoton = computed( () => {
-        return cartStore.cartItemsSize == 0;
+        return cartStore.cartItemsSize == 0 || !authStore.isAuthenticated;
     });
 
 
     function comprar(){
-        console.log(`CLIENTE: ${JSON.stringify(user)}`);
+        console.log(`CLIENTE: ${user.email}`);
         /* let detalle = [];
         cartStore.getCartItems.forEach(item => {
             detalle.push(
