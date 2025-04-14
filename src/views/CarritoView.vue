@@ -94,7 +94,7 @@
     import { useAuthStore } from '../stores/AuthStore';
     
     const authStore = useAuthStore();
-    const user = computed(() => authStore.user);
+    const emailUser = computed(() => authStore.getUserEmail);
     const isAuthenticated = computed(() => authStore.isAuthenticated);
 
     const cartStore = useCartStore();
@@ -105,8 +105,7 @@
 
 
     function comprar(){
-        console.log(`CLIENTE: ${user.email}`);
-        /* let detalle = [];
+        let detalle = [];
         cartStore.getCartItems.forEach(item => {
             detalle.push(
                 {
@@ -121,14 +120,14 @@
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                email_cliente: user.email,
+                email_cliente: emailUser.value,
                 detalle: detalle
             })
         };
         
         fetch('http://127.0.0.1:8000/rest/compras', requestOptions);
 
-        cartStore.vaciarCart(); */
+        cartStore.vaciarCart();
     }
 </script>
 
