@@ -52,11 +52,19 @@
         </tbody>
     </table>
 
+    <div>
     <!-- Button trigger modal -->
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" v-bind:disabled="deshabilitarBoton">
-            <v-icon name="bi-cart-check" scale="1.5"/> Comprar
-        </button>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" v-bind:disabled="deshabilitarBoton">
+                <v-icon name="bi-cart-check" scale="1.5"/> Comprar
+            </button>
+        </div>
+        <p class="mt-3 text-end" v-if="!isAuthenticated">
+            Debe iniciar sesión para efectuar la compra. ¿Eres nuevo? 
+            <router-link to="/register" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
+                Registrarse
+            </router-link>
+        </p>
     </div>
 
     <!-- Modal -->
@@ -87,11 +95,12 @@
     
     const authStore = useAuthStore();
     const user = computed(() => authStore.user);
+    const isAuthenticated = computed(() => authStore.isAuthenticated);
 
     const cartStore = useCartStore();
     
     let deshabilitarBoton = computed( () => {
-        return cartStore.cartItemsSize == 0 || !authStore.isAuthenticated;
+        return cartStore.cartItemsSize == 0 || !isAuthenticated;
     });
 
 
