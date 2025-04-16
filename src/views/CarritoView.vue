@@ -60,7 +60,7 @@
             </button>
         </div>
         <p class="mt-3 text-end" v-if="!isAuthenticated">
-            Debe iniciar sesión para efectuar la compra. ¿Eres nuevo? 
+            Debes iniciar sesión para efectuar la compra. ¿Eres nuevo? 
             <router-link to="/register" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
                 Registrarse
             </router-link>
