@@ -26,6 +26,7 @@
     const user = computed(() => authStore.user);
 
     const logout = () => authStore.logout();
+    const purchases = () => authStore.purchases();
 
    // console.log(`Usuario: ${JSON.stringify(user)}`);
 </script>
@@ -40,7 +41,7 @@
                 <div class="row align-items-end">
                     <div class="col" v-if="isAuthenticated" >
                         <RouterLink to="/compras" class="nav-link active position-relative">
-                            <v-icon name="bi-handbag" scale="1.5" animation="wrench" hover inverse/>
+                            <v-icon @click="purchases" name="bi-handbag" scale="1.5" animation="wrench" hover inverse/>
                         </RouterLink>
                     </div>
                     <div class="col me-4">

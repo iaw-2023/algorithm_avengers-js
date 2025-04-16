@@ -6,16 +6,17 @@ export const useAuthStore = defineStore('AuthStore', {
         user: null,
         token: JSON.parse(localStorage.getItem('auth_token')) || null,
         error: null,
+        userPurchases: null,
     }),
     getters: {
         isAuthenticated: (state) => !!state.user,
         getUser: (state) => state.user,
         getUserEmail: (state) => state.user?.email,
+        getUserPurchases: (state) => state.userPurchases,
     },
     actions: {
         async register(email, contrasena, nombre, telefono, domicilio) {
             try {
-                console.log(`Registrando usuario\n email: ${email}\n contraseña: ${contrasena}\n nombre: ${nombre}\n telefono: ${telefono}\n domicilio: ${domicilio}`);
                 const response = await apiClient.post('clientes/registrar', {
                     email,
                     contrasena,
@@ -51,7 +52,6 @@ export const useAuthStore = defineStore('AuthStore', {
             try {
                 const response = await apiClient.get('/clientes/perfil');
                 this.user = response.data;
-                console.log(`Perfil del usuario: ${JSON.stringify(response.data)}`);
                 return response.data;
             } catch (error){
                 this.error = error.response?.data?.message || "Error al obtener el perfil del usuario";
@@ -67,6 +67,16 @@ export const useAuthStore = defineStore('AuthStore', {
                 delete apiClient.defaults.headers.common['Authorization'];
             } catch (error) {
                 this.error = error.response?.data?.message || "Logout fallido";
+                throw error;
+            }
+        },
+        async purchases() {
+            try{
+                const response = await apiClient.get('clientes/compras');
+                this.userPurchases = response.data;
+                return this.userPurchases;
+            }catch(error){
+                this.error = error.response?.data?.message || "Error al obtener las compras del cliente";
                 throw error;
             }
         }

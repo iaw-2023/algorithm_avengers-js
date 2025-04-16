@@ -4,12 +4,13 @@
     
     const authStore = useAuthStore();
     const user = computed(() => authStore.user);
+    const compras = computed(() => authStore.getUserPurchases);
 </script>
 
 <template>
     <h1 class="mb-4">Tus compras, {{ user.nombre }}</h1>
 
-    <div class="card mt-6" v-for="compra in user.compras">
+    <div class="card mt-6" v-for="compra in compras">
         <div class="card-body m-3">
             <div class="row">
                 <p class="h4 col text-start fw-bold">{{ compra.fecha }}</p>
@@ -26,7 +27,7 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{detalle.producto.nombre}} (x{{ detalle.cantidad }})</h5>
-                                <p class="card-text"><small class="text-body-secondary">{{detalle.talle}}</small></p>
+                                <p class="card-text"><small class="text-body-secondary">Talle: {{detalle.talle}}</small></p>
                                 <p class="card-text" id="descripcion">{{detalle.producto.descripcion}}</p>
                             </div>
                         </div>
