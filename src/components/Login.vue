@@ -10,7 +10,7 @@
             <span class="form-text text-danger mt-2" v-if="errors.value !== ''">{{ errors.value }}</span>
         </div>
         <div class="d-flex align-items-end flex-column pe-1">
-            <button class="btn btn-primary btn-sm" type="submit">Login</button>
+            <button class="btn btn-primary btn-sm" type="submit">Iniciar sesión</button>
         </div>
         
     </form>
