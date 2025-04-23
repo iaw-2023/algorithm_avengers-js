@@ -1,81 +1,76 @@
-<!-- src/components/MercadoPagoPayment.vue -->
+<!-- src/components/CardPaymentBrick.vue -->
 <template>
-    <div>
-      <div id="cardPaymentBrick_container"></div>
-      <!-- or for checkout brick -->
-      <!-- <div id="checkoutBrick_container"></div> -->
-    </div>
+    <div id="cardPaymentBrick_container" ref="brickContainer"></div>
   </template>
   
-  <script>
+  <script setup>
+  import { ref, onMounted } from 'vue';
   import { loadMercadoPago } from '@mercadopago/sdk-js';
   import axios from 'axios';
   
-  export default {
-    props: {
-      amount: Number,
-      description: String,
+  const props = defineProps({
+    amount: {
+      type: Number,
+      required: true
     },
-    async mounted() {
-      // Initialize Mercado Pago
+    description: {
+      type: String,
+      required: true
+    }
+  });
+  
+  const brickContainer = ref(null);
+  
+  const createPreference = async () => {
+    try {
+      const response = await axios.post('/api/create-preference', {
+        title: props.description,
+        quantity: 1,
+        price: props.amount,
+      });
+      return response.data.id;
+    } catch (error) {
+      console.error('Error creating preference:', error);
+      throw error;
+    }
+  };
+  
+  onMounted(async () => {
+    try {
       await loadMercadoPago();
-      const mp = new window.MercadoPago(process.env.VUE_APP_MERCADOPAGO_PUBLIC_KEY, {
+      const mp = new window.MercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY, {
         locale: 'es-AR'
       });
   
-      // For Card Payment Brick
+      const preferenceId = await createPreference();
+      
       const bricksBuilder = mp.bricks();
       
-      try {
-        // Get preference ID from backend using Axios
-        const response = await this.createPreference();
-        const preferenceId = response.data.id;
-  
-        // Render Card Payment Brick
-        bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', {
-          initialization: {
-            amount: this.amount,
-            preferenceId: preferenceId,
+      bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', {
+        initialization: {
+          amount: props.amount,
+          preferenceId: preferenceId,
+        },
+        callbacks: {
+          onReady: () => {
+            console.log('Brick ready');
           },
-          callbacks: {
-            onReady: () => {
-              // Handle ready event
-            },
-            onSubmit: async ({ selectedPaymentMethod, formData }) => {
-              // Handle form submission with Axios
-              try {
-                await axios.post('/process-payment', formData);
-                return Promise.resolve();
-              } catch (error) {
-                console.error('Payment processing error:', error);
-                return Promise.reject();
-              }
-            },
-            onError: (error) => {
-              // Handle error
-              console.error(error);
-            },
-          }
-        });
-  
-      } catch (error) {
-        console.error('Error inicializando Mercado Pago:', error);
-      }
-    },
-    methods: {
-      async createPreference() {
-        try {
-          const response = await axios.post('/api/create-preference', {
-            title: this.description,
-            quantity: 1,
-            price: this.amount,
-          });
-          return response;
-        } catch (error) {
-          console.error('Error creating preference:', error);
-          throw error;
+          onSubmit: async ({ formData }) => {
+            try {
+              await axios.post('/api/process-payment', formData);
+              return Promise.resolve();
+            } catch (error) {
+              console.error('Payment processing error:', error);
+              return Promise.reject();
+            }
+          },
+          onError: (error) => {
+            console.error('Brick error:', error);
+          },
         }
-      }
+      });
+    } catch (error) {
+      console.error('MercadoPago initialization error:', error);
     }
-  };
+  });
   </script>

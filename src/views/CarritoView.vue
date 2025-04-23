@@ -85,13 +85,19 @@
             </div>
         </div>
     </div>
-
+    <div>
+        <MercadoPagoPayment 
+            :amount="100"
+            description="Test"
+        />
+    </div>
 </template>
 
 <script setup>
     import { useCartStore } from '../stores/CartStore';
     import { computed } from 'vue';
     import { useAuthStore } from '../stores/AuthStore';
+    import MercadoPagoPayment from '../components/MercadoPagoPayment.vue';
     
     const authStore = useAuthStore();
     const emailUser = computed(() => authStore.getUserEmail);
