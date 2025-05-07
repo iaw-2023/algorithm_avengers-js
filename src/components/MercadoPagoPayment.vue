@@ -6,7 +6,7 @@
   <script setup>
   import { ref, onMounted } from 'vue';
   import { loadMercadoPago } from '@mercadopago/sdk-js';
-  import axios from 'axios';
+  import apiClient from '../plugins/axios';
   
   const props = defineProps({
     amount: {
@@ -23,7 +23,7 @@
   
   const createPreference = async () => {
     try {
-      const response = await axios.post('/api/create-preference', {
+      const response = await apiClient.post('/iniciar-pago', {
         title: props.description,
         quantity: 1,
         price: props.amount,
@@ -57,7 +57,7 @@
           },
           onSubmit: async ({ formData }) => {
             try {
-              await axios.post('/api/process-payment', formData);
+              await apiClient.post('/process-payment', formData);
               return Promise.resolve();
             } catch (error) {
               console.error('Payment processing error:', error);
