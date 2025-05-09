@@ -111,7 +111,7 @@ import apiClient from '../plugins/axios';
     });
 
 
-    function comprar(){
+    async function comprar(){
         let detalle = [];
         cartStore.getCartItems.forEach(item => {
             detalle.push(
