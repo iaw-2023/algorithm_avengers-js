@@ -55,8 +55,11 @@
     <div>
     <!-- Button trigger modal -->
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" v-bind:disabled="deshabilitarBoton">
+            <!-- <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" v-bind:disabled="deshabilitarBoton">
                 <v-icon name="bi-cart-check" scale="1.5"/> Comprar
+            </button> -->
+            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" v-bind:disabled="deshabilitarBoton">
+                <v-icon name="bi-cart-check" scale="1.5"/> Continuar
             </button>
         </div>
         <p class="mt-3 text-end" v-if="!isAuthenticated">
@@ -80,16 +83,13 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" @click="comprar()" data-bs-dismiss="modal">Continuar</button>
+                <!-- <button type="button" class="btn btn-primary" @click="comprar()" data-bs-dismiss="modal">Continuar</button> -->
+                 <router-link to="/pagar">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Continuar a pago</button>
+                </router-link>
             </div>
             </div>
         </div>
-    </div>
-    <div>
-        <MercadoPagoPayment 
-            :amount="100"
-            description="Test"
-        />
     </div>
 </template>
 
@@ -97,7 +97,7 @@
     import { useCartStore } from '../stores/CartStore';
     import { computed } from 'vue';
     import { useAuthStore } from '../stores/AuthStore';
-    import MercadoPagoPayment from '../components/MercadoPagoPayment.vue';
+    import MercadoPagoPayment from './MercadoPagoView.vue';
 import apiClient from '../plugins/axios';
     
     const authStore = useAuthStore();

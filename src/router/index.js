@@ -5,6 +5,7 @@ import CarritoView from '../views/CarritoView.vue'
 import { useAuthStore } from '../stores/AuthStore'
 import RegisterView from '../views/RegisterView.vue'
 import ComprasView from '../views/ComprasView.vue'
+import MercadoPagoView from '../views/MercadoPagoView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +42,11 @@ const router = createRouter({
       path: '/compras',
       name: 'Mis compras',
       component: ComprasView
+    },
+    {
+      path: '/pagar',
+      name: 'Pagar con MercadoPago',
+      component: MercadoPagoView,
     }
   ]
 });

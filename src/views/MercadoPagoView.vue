@@ -24,9 +24,9 @@
   const createPreference = async () => {
     try {
       const response = await apiClient.post('/iniciar-pago', {
-        title: props.description,
+        title: "Test desde frontend",
         quantity: 1,
-        price: props.amount,
+        price: 420.69,
       });
       return response.data.id;
     } catch (error) {
@@ -48,7 +48,7 @@
       
       bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', {
         initialization: {
-          amount: props.amount,
+          amount: 420.69,
           preferenceId: preferenceId,
         },
         callbacks: {
@@ -57,6 +57,7 @@
           },
           onSubmit: async ({ formData }) => {
             try {
+              console.log("onSubmit :: llamando a /process-payment");
               await apiClient.post('/process-payment', formData);
               return Promise.resolve();
             } catch (error) {

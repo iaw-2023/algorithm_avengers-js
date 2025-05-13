@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const apiClient = axios.create({
     //baseURL: 'http://127.0.0.1:8000/rest',
-    baseURL: 'https://algorithm-avengers-laravel.vercel.app/rest',
+    //baseURL: 'https://algorithm-avengers-laravel.vercel.app/rest',
+    baseURL: 'https://algorithm-avengers-laravel-fgq1tdydc-algorithm-avengers.vercel.app/rest/',
     headers:{
         'Content-Type': 'application/json',
     },
