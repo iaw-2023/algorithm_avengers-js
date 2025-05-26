@@ -1,14 +1,21 @@
 <!-- src/components/CardPaymentBrick.vue -->
 <template>
-  
+    <p>
+      Items: {{ items }}
+    </p>
     <div id="cardPaymentBrick_container" ref="brickContainer"></div>
 </template>
   
-  <script setup>
+<script setup>
   import { ref, onMounted } from 'vue';
   import { loadMercadoPago } from '@mercadopago/sdk-js';
   import apiClient from '../plugins/axios';
-  
+  import { useCartStore } from '../stores/CartStore';
+  import { useAuthStore } from '../stores/AuthStore';
+
+  const cartStore = useCartStore();
+  const authStore = useAuthStore();
+
   const props = defineProps({
     amount: {
       type: Number,
@@ -23,12 +30,25 @@
   const brickContainer = ref(null);
   
   const createPreference = async () => {
-    try {
-      const response = await apiClient.post('/iniciar-pago', {
-        title: "Test desde frontend",
-        quantity: 1,
-        price: 420.69,
+    let items = [];
+    cartStore.getCartItems.forEach(item => {
+      items.push({
+        id: item.id,
+        title: item.nombre,
+        quantity: item.quantity,
+        unit_price: item.precio,
       });
+    });
+
+    let payer = {
+      email: authStore.getUserEmail,
+    }
+    
+    console.log(`Items: ${JSON.stringify(items)}`);
+
+    try {
+      const response = await apiClient.post('/iniciar-pago', {items, payer});
+      console.log(`Respuesta createPreference: ${JSON.stringify(response)}`);
       return response.data.id;
     } catch (error) {
       console.error('Error creating preference:', error);
@@ -49,7 +69,7 @@
       
       bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', {
         initialization: {
-          amount: 420.69,
+          amount: cartStore.getTotal,
           preferenceId: preferenceId,
         },
         callbacks: {
@@ -75,4 +95,4 @@
       console.error('MercadoPago initialization error:', error);
     }
   });
-  </script>
+</script>

@@ -86,7 +86,7 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <!-- <button type="button" class="btn btn-primary" @click="comprar()" data-bs-dismiss="modal">Continuar</button> -->
                  <router-link to="/pagar">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Continuar a pago</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Continuar al pago</button>
                 </router-link>
             </div>
             </div>
