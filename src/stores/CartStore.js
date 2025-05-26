@@ -15,7 +15,11 @@ export const useCartStore = defineStore("CartStore", {
 
 		cartItemsSize(){
 			return this.cartItems.length;
-		}
+		},
+
+		getTotal(){
+			return this.cartItems.reduce((sum, item) => sum + (item.precio * item.quantity), 0);
+		},
 	},
 	
 	actions: {

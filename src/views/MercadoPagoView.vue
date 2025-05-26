@@ -1,7 +1,8 @@
 <!-- src/components/CardPaymentBrick.vue -->
 <template>
+  
     <div id="cardPaymentBrick_container" ref="brickContainer"></div>
-  </template>
+</template>
   
   <script setup>
   import { ref, onMounted } from 'vue';
@@ -41,7 +42,7 @@
       const mp = new window.MercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY, {
         locale: 'es-AR'
       });
-  
+
       const preferenceId = await createPreference();
       
       const bricksBuilder = mp.bricks();

@@ -45,7 +45,8 @@
                 <td><p class="fw-bold">Total</p>
                 </td>
                 <td>
-                    <p class="fw-bold">${{ (cartStore.cartItems.reduce((acc,item) => acc += item.precio * item.quantity,0)).toFixed(2) }}</p>
+                    <p class="fw-bold">${{ cartStore.getTotal.toFixed(2) }}</p>
+                    <!-- <p class="fw-bold">${{ (cartStore.cartItems.reduce((acc,item) => acc += item.precio * item.quantity,0)).toFixed(2) }}</p>  -->
                 </td>
                 <td></td>
             </tr>
@@ -58,7 +59,7 @@
             <!-- <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" v-bind:disabled="deshabilitarBoton">
                 <v-icon name="bi-cart-check" scale="1.5"/> Comprar
             </button> -->
-            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" v-bind:disabled="deshabilitarBoton">
+            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" v-bind:disabled="botonDeshabilitado">
                 <v-icon name="bi-cart-check" scale="1.5"/> Continuar
             </button>
         </div>
@@ -97,8 +98,8 @@
     import { useCartStore } from '../stores/CartStore';
     import { computed } from 'vue';
     import { useAuthStore } from '../stores/AuthStore';
-    import MercadoPagoPayment from './MercadoPagoView.vue';
-import apiClient from '../plugins/axios';
+    import apiClient from '../plugins/axios';
+
     
     const authStore = useAuthStore();
     const emailUser = computed(() => authStore.getUserEmail);
@@ -106,8 +107,8 @@ import apiClient from '../plugins/axios';
 
     const cartStore = useCartStore();
     
-    let deshabilitarBoton = computed( () => {
-        return cartStore.cartItemsSize == 0 || !isAuthenticated;
+    const botonDeshabilitado = computed( () => {
+        return !(cartStore.cartItemsSize > 0) || !authStore.isAuthenticated;
     });
 
 
