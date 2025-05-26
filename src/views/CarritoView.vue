@@ -107,9 +107,7 @@
 
     const cartStore = useCartStore();
     
-    const botonDeshabilitado = computed( () => {
-        return !(cartStore.cartItemsSize > 0) || !authStore.isAuthenticated;
-    });
+    const botonDeshabilitado = computed(() => !(cartStore.cartItemsSize > 0) || !authStore.isAuthenticated);
 
 
     async function comprar(){
