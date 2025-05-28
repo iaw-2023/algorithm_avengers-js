@@ -58,7 +58,7 @@
         id: item.id,
         title: item.nombre,
         quantity: item.quantity,
-        unit_price: item.precio,
+        unit_price: parseFloat(item.precio),
       });
     });
 
@@ -133,11 +133,12 @@
           },
           onSubmit: async ({ formData }) => {
             try {
+              console.log(`formData: ${JSON.stringify(formData)}`);
               await comprar();
+              showSuccessModal.value = true;
               return Promise.resolve();
             } catch (error) {
               console.error('Payment processing error:', error);
-              showSuccessModal.value = true;
               return Promise.reject();
             }
           },
