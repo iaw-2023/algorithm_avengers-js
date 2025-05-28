@@ -1,9 +1,26 @@
 <!-- src/components/CardPaymentBrick.vue -->
 <template>
-    <p>
-      Items: {{ items }}
-    </p>
+    <h1 class="mb-4">Pagar con Mercado Pago</h1>
     <div id="cardPaymentBrick_container" ref="brickContainer"></div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" @v-bind:hidden="!showSuccessModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">¡Éxito!</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ¡Felicidades! El pago se ha concretado con éxito. La compra estará llegando a tu casa en 5 días hábiles
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Continuar comprando</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </template>
   
 <script setup>
@@ -15,6 +32,11 @@
 
   const cartStore = useCartStore();
   const authStore = useAuthStore();
+
+  const emailUser = ref('');
+  emailUser.value = authStore.getUserEmail;
+
+  const showSuccessModal = ref(false);
 
   const props = defineProps({
     amount: {
@@ -41,7 +63,7 @@
     });
 
     let payer = {
-      email: authStore.getUserEmail,
+      email: emailUser.value,
     }
     
     console.log(`Items: ${JSON.stringify(items)}`);
@@ -55,6 +77,36 @@
       throw error;
     }
   };
+
+  async function comprar(){
+    console.log(`Email cliente: ${emailUser.value}`);
+    let detalle = [];
+    cartStore.getCartItems.forEach(item => {
+      detalle.push(
+        {
+        "producto_id": item.id,
+        "talle": item.talle_seleccionado, 
+        "cantidad": item.quantity
+        }
+      )
+    });
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+          email_cliente: emailUser.value,
+          detalle: detalle
+      })
+    };
+
+    console.log(`Compra con opciones ${JSON.stringify(requestOptions)}`);
+
+
+    await apiClient.post('compras', requestOptions);
+
+    cartStore.vaciarCart();
+  }
   
   onMounted(async () => {
     try {
@@ -71,6 +123,9 @@
         initialization: {
           amount: cartStore.getTotal,
           preferenceId: preferenceId,
+          payer: {
+            email: emailUser.value,
+          },
         },
         callbacks: {
           onReady: () => {
@@ -78,11 +133,11 @@
           },
           onSubmit: async ({ formData }) => {
             try {
-              console.log("onSubmit :: llamando a /process-payment");
-              await apiClient.post('/process-payment', formData);
+              await comprar();
               return Promise.resolve();
             } catch (error) {
               console.error('Payment processing error:', error);
+              showSuccessModal.value = true;
               return Promise.reject();
             }
           },
