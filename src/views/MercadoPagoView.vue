@@ -90,20 +90,21 @@
       )
     });
 
-    const requestOptions = {
+    /* const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: {
           email_cliente: emailUser.value,
           detalle: detalle
       }
+    }; */
+
+    let body = {
+      email_cliente: emailUser.value,
+      detalle: detalle
     };
 
-    console.log(`detalle: ${JSON.stringify(detalle)}`);
-    console.log(`Compra con opciones ${JSON.stringify(requestOptions)}`);
-
-
-    await apiClient.post('/compras', requestOptions);
+    await apiClient.post('/compras', body);
 
     cartStore.vaciarCart();
   }
