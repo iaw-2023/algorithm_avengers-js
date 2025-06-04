@@ -1,33 +1,42 @@
 <template>
-    <h1 class="mb-4">Pagar con Mercado Pago</h1>
-    <div id="cardPaymentBrick_container" ref="brickContainer"></div>
+  <h1 class="mb-4">Pagar con Mercado Pago</h1>
+  <div id="cardPaymentBrick_container" ref="brickContainer"></div>
 
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" @v-bind:hidden="!showSuccessModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">¡Éxito!</h1>
+  <!-- Modal -->
+  <div class="modal fade" ref="successModalRef" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">¡Éxito!</h1>
+          <router-link to="/">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            ¡Felicidades! El pago se ha concretado con éxito. La compra estará llegando a tu casa en 5 días hábiles
-          </div>
-          <div class="modal-footer">
+          </router-link>
+        </div>
+        <div class="modal-body">
+          ¡Felicidades! El pago se ha concretado con éxito. La compra estará llegando a tu casa en 5 días hábiles
+        </div>
+        <div class="modal-footer">
+          <router-link to="/">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver a inicio</button>
+          </router-link>
+          <router-link to="/productos">
             <button type="button" class="btn btn-primary">Continuar comprando</button>
-          </div>
+          </router-link>
         </div>
       </div>
     </div>
+  </div>
+
+
 </template>
   
 <script setup>
-  import { ref, onMounted } from 'vue';
+  import { ref, onMounted, watch } from 'vue';
   import { loadMercadoPago } from '@mercadopago/sdk-js';
   import apiClient from '../plugins/axios';
   import { useCartStore } from '../stores/CartStore';
   import { useAuthStore } from '../stores/AuthStore';
+  import { Modal } from 'bootstrap';
 
   const cartStore = useCartStore();
   const authStore = useAuthStore();
@@ -36,6 +45,8 @@
   emailUser.value = authStore.getUserEmail;
 
   const showSuccessModal = ref(false);
+  const successModalRef = ref(null);
+  let successModal = null;
 
 /*   const props = defineProps({
     amount: {
@@ -78,7 +89,6 @@
   }; */
 
   async function comprar(){
-    console.log(`Email cliente: ${emailUser.value}`);
     let detalle = [];
     cartStore.getCartItems.forEach(item => {
       detalle.push(
@@ -98,13 +108,11 @@
           detalle: detalle
       }
     }; */
-
-    let body = {
+  
+    await apiClient.post('/compras', {
       email_cliente: emailUser.value,
       detalle: detalle
-    };
-
-    await apiClient.post('/compras', body);
+    });
 
     cartStore.vaciarCart();
   }
@@ -134,9 +142,8 @@
           onReady: () => {
             console.log('Brick ready');
           },
-          onSubmit: async ({ formData }) => {
+          onSubmit: async ( cardData ) => {
             try {
-              console.log(`formData: ${JSON.stringify(formData)}`);
               await comprar();
               showSuccessModal.value = true;
               return Promise.resolve();
@@ -152,6 +159,20 @@
       });
     } catch (error) {
       console.error('MercadoPago initialization error:', error);
+    }
+
+    successModal = new Modal(successModalRef.value);
+    successModalRef.value.addEventListener('hidden.bs.modal', () => {
+      showSuccessModal.value = false;
+    })
+
+  });
+
+  watch(showSuccessModal, (newValue, oldValue) => {
+    if(newValue){
+      successModal.show();
+    }else{
+      successModal.hide();
     }
   });
 </script>
