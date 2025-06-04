@@ -38,7 +38,7 @@
 
   const showSuccessModal = ref(false);
 
-  const props = defineProps({
+/*   const props = defineProps({
     amount: {
       type: Number,
       required: true
@@ -47,7 +47,7 @@
       type: String,
       required: true
     }
-  });
+  }); */
   
   const brickContainer = ref(null);
   
@@ -115,14 +115,16 @@
         locale: 'es-AR'
       });
 
-      const preferenceId = await createPreference();
-      
+      const preferenceId = await createPreference();  
       const bricksBuilder = mp.bricks();
-      
-      bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', {
+
+      console.log(`preferenceId = ${preferenceId}`);
+      console.log(`precio total = ${cartStore.getTotal}`);
+    
+      await bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', {
         initialization: {
           amount: cartStore.getTotal,
-          preferenceId: preferenceId,
+          //preferenceId: preferenceId,
           payer: {
             email: emailUser.value,
           },
