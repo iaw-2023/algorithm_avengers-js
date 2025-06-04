@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('AuthStore', {
     actions: {
         async register(email, contrasena, nombre, telefono, domicilio) {
             try {
-                const response = await apiClient.post('clientes/registrar', {
+                const response = await apiClient.post('/clientes/registrar', {
                     email,
                     contrasena,
                     nombre,
@@ -72,7 +72,7 @@ export const useAuthStore = defineStore('AuthStore', {
         },
         async purchases() {
             try{
-                const response = await apiClient.get('clientes/compras');
+                const response = await apiClient.get('/clientes/compras');
                 this.userPurchases = response.data;
                 return this.userPurchases;
             }catch(error){

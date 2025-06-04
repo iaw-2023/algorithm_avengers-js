@@ -17,7 +17,7 @@ export const useCategoryStore = defineStore("CategoryStore", {
 	actions: {
 		async loadCategorias(){
 			try{
-				let response = await apiClient.get('categorias');
+				let response = await apiClient.get('/categorias');
 				let lista = response.data.data;
 				this.categorias = lista.slice().sort((a,b) => a.nombre.localeCompare(b.nombre));
 			}catch(error){

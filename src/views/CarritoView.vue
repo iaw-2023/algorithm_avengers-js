@@ -132,7 +132,7 @@
         };
 
 
-        await apiClient.post('compras', requestOptions);
+        await apiClient.post('/compras', requestOptions);
         //fetch('http://127.0.0.1:8000/rest/compras', requestOptions);
 
         cartStore.vaciarCart();

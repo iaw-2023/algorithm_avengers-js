@@ -51,7 +51,7 @@
   
   const brickContainer = ref(null);
   
-  const createPreference = async () => {
+/*   const createPreference = async () => {
     let items = [];
     cartStore.getCartItems.forEach(item => {
       items.push({
@@ -76,7 +76,7 @@
       console.error('Error creating preference:', error);
       throw error;
     }
-  };
+  }; */
 
   async function comprar(){
     console.log(`Email cliente: ${emailUser.value}`);
@@ -102,8 +102,7 @@
 
     console.log(`Compra con opciones ${JSON.stringify(requestOptions)}`);
 
-
-    await apiClient.post('compras', requestOptions);
+    await apiClient.post('/compras', requestOptions);
 
     cartStore.vaciarCart();
   }
@@ -115,11 +114,11 @@
         locale: 'es-AR'
       });
 
-      const preferenceId = await createPreference();  
+      //const preferenceId = await createPreference();  
       const bricksBuilder = mp.bricks();
 
-      console.log(`preferenceId = ${preferenceId}`);
-      console.log(`precio total = ${cartStore.getTotal}`);
+      //console.log(`preferenceId = ${preferenceId}`);
+      //console.log(`precio total = ${cartStore.getTotal}`);
     
       await bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', {
         initialization: {

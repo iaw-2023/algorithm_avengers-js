@@ -19,15 +19,15 @@ export const useProductsStore = defineStore("ProductsStore", {
 	actions: {
         async loadProductos(){
             try{
-                let response = await apiClient.get('productos');
+                let response = await apiClient.get('/productos');
                 this.productos = response.data.data;
                 this.productosAll = response.data.data;
 
-                let response_cat = await apiClient.get('categorias');
+                let response_cat = await apiClient.get('/categorias');
                 let categorias = response_cat.data.data;
 
                 categorias.forEach(async (cat) => {
-                    let response_prod = await apiClient.get('categorias/' + cat.id + '/productos');
+                    let response_prod = await apiClient.get('/categorias/' + cat.id + '/productos');
                     this.productosByCat[cat.id] = response_prod.data;
                 })
             }catch (error){
