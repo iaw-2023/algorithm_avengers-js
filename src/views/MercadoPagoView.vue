@@ -1,4 +1,3 @@
-<!-- src/components/CardPaymentBrick.vue -->
 <template>
     <h1 class="mb-4">Pagar con Mercado Pago</h1>
     <div id="cardPaymentBrick_container" ref="brickContainer"></div>
@@ -94,13 +93,15 @@
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+      body: {
           email_cliente: emailUser.value,
           detalle: detalle
-      })
+      }
     };
 
+    console.log(`detalle: ${JSON.stringify(detalle)}`);
     console.log(`Compra con opciones ${JSON.stringify(requestOptions)}`);
+
 
     await apiClient.post('/compras', requestOptions);
 
