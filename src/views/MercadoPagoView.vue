@@ -9,7 +9,7 @@
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="staticBackdropLabel">¡Éxito!</h1>
           <router-link to="/">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="goToHome"></button>
           </router-link>
         </div>
         <div class="modal-body">
@@ -17,10 +17,10 @@
         </div>
         <div class="modal-footer">
           <router-link to="/">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver a inicio</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="goToHome">Volver a inicio</button>
           </router-link>
           <router-link to="/productos">
-            <button type="button" class="btn btn-primary">Continuar comprando</button>
+            <button type="button" class="btn btn-primary" @click="goToProducts">Continuar comprando</button>
           </router-link>
         </div>
       </div>
@@ -31,15 +31,17 @@
 </template>
   
 <script setup>
-  import { ref, onMounted, watch } from 'vue';
+  import { ref, onMounted, onUnmounted, watch } from 'vue';
   import { loadMercadoPago } from '@mercadopago/sdk-js';
   import apiClient from '../plugins/axios';
   import { useCartStore } from '../stores/CartStore';
   import { useAuthStore } from '../stores/AuthStore';
   import { Modal } from 'bootstrap';
+  import { useRouter } from 'vue-router';
 
   const cartStore = useCartStore();
   const authStore = useAuthStore();
+  const router = useRouter();
 
   const emailUser = ref('');
   emailUser.value = authStore.getUserEmail;
@@ -87,6 +89,18 @@
       throw error;
     }
   }; */
+
+  function goToProducts(){
+    showSuccessModal.value = false;
+    brickContainer.value = null;
+    router.replace({name: 'productos'});
+  }
+
+  function goToHome(){
+    showSuccessModal.value = false;
+    brickContainer.value = null;
+    router.replace({name: 'productos'});
+  }
 
   async function comprar(){
     let detalle = [];
@@ -166,6 +180,10 @@
       showSuccessModal.value = false;
     })
 
+  });
+
+  onUnmounted(() => {
+    console.log("MercadoPagoView desmontada");
   });
 
   watch(showSuccessModal, (newValue, oldValue) => {
