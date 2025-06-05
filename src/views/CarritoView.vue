@@ -98,7 +98,7 @@
     import { useCartStore } from '../stores/CartStore';
     import { computed } from 'vue';
     import { useAuthStore } from '../stores/AuthStore';
-    import apiClient from '../plugins/axios';
+    import { apiClient } from '../plugins/axios';
 
     
     const authStore = useAuthStore();

@@ -12,4 +12,8 @@ const apiClient = axios.create({
     },
 });
 
-export default apiClient;
+const apiMP = axios.create({
+    baseURL: 'https://api.mercadopago.com/v1',
+});
+
+export {apiClient, apiMP};

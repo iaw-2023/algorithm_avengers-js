@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import apiClient from '../plugins/axios';
+import { apiClient } from '../plugins/axios';
 
 export const useAuthStore = defineStore('AuthStore', {
     state: () => ({

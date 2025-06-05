@@ -45,7 +45,7 @@
 <script setup>
   import { ref, onMounted, onUnmounted, watch } from 'vue';
   import { loadMercadoPago } from '@mercadopago/sdk-js';
-  import apiClient from '../plugins/axios';
+  import { apiClient, apiMP } from '../plugins/axios';
   import { useCartStore } from '../stores/CartStore';
   import { useAuthStore } from '../stores/AuthStore';
   import { Modal } from 'bootstrap';
@@ -80,6 +80,7 @@
   const brickContainer = ref(null);
   let bricksController = null;
   
+  let randomString = 'random_string';
 /*   const createPreference = async () => {
     let items = [];
     cartStore.getCartItems.forEach(item => {
@@ -123,6 +124,16 @@
     showErrorModal.value = false;
   }
 
+  function generateRandomString(length){
+    let result = '';
+    let characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
   async function comprar(){
     let detalle = [];
     cartStore.getCartItems.forEach(item => {
@@ -154,6 +165,7 @@
   
   onMounted(async () => {
     try {
+      randomString = generateRandomString();
       await loadMercadoPago();
       const mp = new window.MercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY, {
         locale: 'es-AR'
@@ -179,9 +191,24 @@
           },
           onSubmit: async ( cardData ) => {
             try {
-              await comprar();
-              showSuccessModal.value = true;
-              return Promise.resolve();
+              console.log(`cardData: ${JSON.stringify(cardData)}`);
+              const response = await apiMP.post('/payments', cardData, {
+                headers:{
+                  'Content-Type': 'application/json',
+                  'X-Idempotency-Key': randomString,
+                }
+              });
+              console.log(`Respuesta a payment: ${JSON.stringify(response)}`);
+
+              if(response.status === 201){
+                await comprar();
+                showSuccessModal.value = true;
+                return Promise.resolve();
+              }else{
+                console.error(`Error al procesar el pago: ${response.message}`);
+                showErrorModal.value = true;
+                return Promise.reject();  
+              }
             } catch (error) {
               showErrorModal.value = true;
               console.error('Payment processing error:', error);
