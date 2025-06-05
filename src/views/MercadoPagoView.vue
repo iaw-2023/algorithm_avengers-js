@@ -2,7 +2,7 @@
   <h1 class="mb-4">Pagar con Mercado Pago</h1>
   <div id="cardPaymentBrick_container" ref="brickContainer"></div>
 
-  <!-- Modal -->
+  <!-- Success modal -->
   <div class="modal fade" ref="successModalRef" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -16,6 +16,24 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="goToHome">Volver a inicio</button>
           <button type="button" class="btn btn-primary" @click="goToProducts">Continuar comprando</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error modal -->
+  <div class="modal fade" ref="errorModalRef" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Error</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="errorOkay"></button>
+        </div>
+        <div class="modal-body">
+          Ha ocurrido un error al procesar el pago. Por favor, inténtelo nuevamente más tarde
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" @click="errorOkay">Entendido</button>
         </div>
       </div>
     </div>
@@ -44,6 +62,10 @@
   const successModalRef = ref(null);
   let successModal = null;
 
+  const showErrorModal = ref(null);
+  const errorModalRef = ref(null);
+  let errorModal = false;
+
 /*   const props = defineProps({
     amount: {
       type: Number,
@@ -56,6 +78,7 @@
   }); */
   
   const brickContainer = ref(null);
+  let bricksController = null;
   
 /*   const createPreference = async () => {
     let items = [];
@@ -94,6 +117,10 @@
     showSuccessModal.value = false;
     brickContainer.value = null;
     router.replace({name: 'home'});
+  }
+
+  function errorOkay(){
+    showErrorModal.value = false;
   }
 
   async function comprar(){
@@ -138,7 +165,7 @@
       //console.log(`preferenceId = ${preferenceId}`);
       //console.log(`precio total = ${cartStore.getTotal}`);
     
-      await bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', {
+      bricksController = await bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', {
         initialization: {
           amount: cartStore.getTotal,
           //preferenceId: preferenceId,
@@ -156,6 +183,7 @@
               showSuccessModal.value = true;
               return Promise.resolve();
             } catch (error) {
+              showErrorModal.value = true;
               console.error('Payment processing error:', error);
               return Promise.reject();
             }
@@ -174,9 +202,15 @@
       showSuccessModal.value = false;
     })
 
+    errorModal = new Modal(errorModalRef.value);
+    errorModalRef.value.addEventListener('hidden.bs.modal', () => {
+      showErrorModal.value = false;
+    })
+
   });
 
   onUnmounted(() => {
+    bricksController.unmount();
     console.log("MercadoPagoView desmontada");
   });
 
@@ -187,4 +221,12 @@
       successModal.hide();
     }
   });
+
+  watch(showErrorModal, (newValue, oldValue) => {
+    if(newValue){
+      errorModal.show();
+    }else{
+      errorModal.hide();
+    }
+  })
 </script>
