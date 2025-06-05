@@ -8,20 +8,14 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="staticBackdropLabel">¡Éxito!</h1>
-          <router-link to="/">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="goToHome"></button>
-          </router-link>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="goToHome"></button>
         </div>
         <div class="modal-body">
           ¡Felicidades! El pago se ha concretado con éxito. La compra estará llegando a tu casa en 5 días hábiles
         </div>
         <div class="modal-footer">
-          <router-link to="/">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="goToHome">Volver a inicio</button>
-          </router-link>
-          <router-link to="/productos">
-            <button type="button" class="btn btn-primary" @click="goToProducts">Continuar comprando</button>
-          </router-link>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="goToHome">Volver a inicio</button>
+          <button type="button" class="btn btn-primary" @click="goToProducts">Continuar comprando</button>
         </div>
       </div>
     </div>
@@ -99,7 +93,7 @@
   function goToHome(){
     showSuccessModal.value = false;
     brickContainer.value = null;
-    router.replace({name: 'productos'});
+    router.replace({name: 'home'});
   }
 
   async function comprar(){
