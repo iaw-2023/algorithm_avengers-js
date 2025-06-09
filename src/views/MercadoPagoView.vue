@@ -140,9 +140,7 @@
           },
           onSubmit: async ( cardData ) => {
             try {
-              console.log(`cardData: ${JSON.stringify(cardData)}`);
               const response = await apiClient.post('/procesar-pago', cardData);
-              console.log(`Respuesta a payment: ${JSON.stringify(response)}`);
 
               if(response.data.status === "approved" || response.data.status === "authorized"){
                 await comprar();
@@ -182,7 +180,6 @@
 
   onUnmounted(() => {
     bricksController.unmount();
-    console.log("MercadoPagoView desmontada");
   });
 
   watch(showSuccessModal, (newValue, oldValue) => {
