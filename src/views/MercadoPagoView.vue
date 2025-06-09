@@ -192,26 +192,21 @@
           onSubmit: async ( cardData ) => {
             try {
               console.log(`cardData: ${JSON.stringify(cardData)}`);
-              const response = await apiMP.post('/payments', cardData, {
-                headers:{
-                  'Content-Type': 'application/json',
-                  'X-Idempotency-Key': randomString,
-                }
-              });
+              const response = await apiClient.post('/procesar-pago', cardData);
               console.log(`Respuesta a payment: ${JSON.stringify(response)}`);
 
-              if(response.status === 201){
+              if(response.data.status === "approved" || response.data.status === "authorized"){
                 await comprar();
                 showSuccessModal.value = true;
                 return Promise.resolve();
               }else{
-                console.error(`Error al procesar el pago: ${response.message}`);
+                //console.error(`Error al procesar el pago: ${response.message}`);
                 showErrorModal.value = true;
                 return Promise.reject();  
               }
             } catch (error) {
               showErrorModal.value = true;
-              console.error('Payment processing error:', error);
+              //console.error('Payment processing error:', error);
               return Promise.reject();
             }
           },
