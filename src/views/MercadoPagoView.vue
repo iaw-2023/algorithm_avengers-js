@@ -65,48 +65,11 @@
   const showErrorModal = ref(null);
   const errorModalRef = ref(null);
   let errorModal = false;
-
-/*   const props = defineProps({
-    amount: {
-      type: Number,
-      required: true
-    },
-    description: {
-      type: String,
-      required: true
-    }
-  }); */
   
   const brickContainer = ref(null);
   let bricksController = null;
   
   let randomString = 'random_string';
-/*   const createPreference = async () => {
-    let items = [];
-    cartStore.getCartItems.forEach(item => {
-      items.push({
-        id: item.id,
-        title: item.nombre,
-        quantity: item.quantity,
-        unit_price: parseFloat(item.precio),
-      });
-    });
-
-    let payer = {
-      email: emailUser.value,
-    }
-    
-    console.log(`Items: ${JSON.stringify(items)}`);
-
-    try {
-      const response = await apiClient.post('/iniciar-pago', {items, payer});
-      console.log(`Respuesta createPreference: ${JSON.stringify(response)}`);
-      return response.data.id;
-    } catch (error) {
-      console.error('Error creating preference:', error);
-      throw error;
-    }
-  }; */
 
   function goToProducts(){
     showSuccessModal.value = false;
@@ -145,15 +108,6 @@
         }
       )
     });
-
-    /* const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: {
-          email_cliente: emailUser.value,
-          detalle: detalle
-      }
-    }; */
   
     await apiClient.post('/compras', {
       email_cliente: emailUser.value,
@@ -171,16 +125,11 @@
         locale: 'es-AR'
       });
 
-      //const preferenceId = await createPreference();  
       const bricksBuilder = mp.bricks();
-
-      //console.log(`preferenceId = ${preferenceId}`);
-      //console.log(`precio total = ${cartStore.getTotal}`);
     
       bricksController = await bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', {
         initialization: {
           amount: cartStore.getTotal,
-          //preferenceId: preferenceId,
           payer: {
             email: emailUser.value,
           },
@@ -200,13 +149,13 @@
                 showSuccessModal.value = true;
                 return Promise.resolve();
               }else{
-                //console.error(`Error al procesar el pago: ${response.message}`);
+                console.error(`Error al procesar el pago: ${response.message}`);
                 showErrorModal.value = true;
                 return Promise.reject();  
               }
             } catch (error) {
               showErrorModal.value = true;
-              //console.error('Payment processing error:', error);
+              console.error('Payment processing error:', error);
               return Promise.reject();
             }
           },
