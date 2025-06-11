@@ -13,10 +13,9 @@
     <div class="card mt-6" v-for="compra in compras">
         <div class="card-body m-3">
             <div class="row">
-                <p class="h4 col text-start fw-bold">{{ compra.fecha }}</p>
+                <p class="col text-start">{{ compra.fecha }}</p>
                 <p class="col text-end fw-lighter">#{{ compra.id }}</p>
             </div>
-            <p class="h5 fw-normal">Total: ${{ compra.precio }}</p>
             
             <div class="container d-grid">
                 <div v-for="detalle in compra.detalles" class="card mb-1 mx-auto" style="max-width: 540px;">
