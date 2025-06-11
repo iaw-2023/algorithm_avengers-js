@@ -18,7 +18,8 @@ const router = createRouter({
     {
       path: '/register',
       name: 'register',
-      component: RegisterView
+      component: RegisterView,
+      meta: {requiresGuest: true},
     },
     {
       path: '/about',
@@ -55,10 +56,15 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
+  console.log(`isAuthenticated: ${authStore.isAuthenticated}`);
+  console.log(`requiresGest: ${to.meta.requiresGuest}`);
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-      next('/');
+    next('/');
+  }else if(to.meta.requiresGuest && authStore.isAuthenticated){
+    console.log(`Estás autenticado, ¿cómo te vas a querer registrar?`);
+    next('/');
   } else {
-      next();
+    next();
   }
 });
 
