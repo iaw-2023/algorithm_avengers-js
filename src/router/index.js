@@ -41,12 +41,14 @@ const router = createRouter({
     {
       path: '/compras',
       name: 'Mis compras',
-      component: ComprasView
+      component: ComprasView,
+      meta: {requiresAuth: true},
     },
     {
       path: '/pagar',
       name: 'Pagar con MercadoPago',
       component: MercadoPagoView,
+      meta: {requiresAuth: true}
     }
   ]
 });
@@ -54,7 +56,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-      next('/login'); // Redirect to login if not authenticated
+      next('/');
   } else {
       next();
   }
