@@ -4,7 +4,9 @@ import ProductList from '../components/productos/ProductList.vue'
 
 <template>
     <main> 
-        <ProductList />
+        <div class="container-fluid">
+            <ProductList />
+        </div>
     </main>
 </template>
 
