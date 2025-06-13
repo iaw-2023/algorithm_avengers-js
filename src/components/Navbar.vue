@@ -39,17 +39,19 @@
             </RouterLink>  
             <span class="navbar-text">
                 <div class="row align-items-end">
-                    <div class="col" v-if="isAuthenticated" >
+                    <div class="col text-center" v-if="isAuthenticated" >
                         <RouterLink to="/compras" class="nav-link active position-relative">
                             <v-icon @click="purchases" name="bi-handbag" scale="1.5" animation="wrench" hover inverse/>
+                            <p class="m-0">Compras</p>
                         </RouterLink>
                     </div>
-                    <div class="col me-4">
+                    <div class="col text-center me-4">
                         <RouterLink to="/carrito" class="nav-link active position-relative">
                             <v-icon name="bi-cart" scale="1.5" animation="wrench" hover />
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" :hidden="cartStore.cartItemsSize == 0">
                                 {{ cartStore.cartItemsSize }}
                             </span>
+                            <p class="m-0">Carrito</p>
                         </RouterLink>
                     </div>
                 </div>
