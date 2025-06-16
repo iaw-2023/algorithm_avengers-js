@@ -43,5 +43,10 @@
     max-width: 250px;
 }
 
-
+/* #card-cuerpo{
+    max-height: 37rem;
+    max-width: 18rem;
+    height: auto;
+    width: auto;    
+} */
 </style>

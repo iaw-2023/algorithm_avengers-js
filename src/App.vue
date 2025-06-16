@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid px-3 px-md-5">
+  <div class="container-fluid px-1 px-md-5">
 	<header>
 		<NavBar />
 	</header>

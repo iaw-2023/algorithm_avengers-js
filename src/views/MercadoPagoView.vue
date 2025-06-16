@@ -1,45 +1,46 @@
 <template>
-  <h1 class="mb-4">Pagar con Mercado Pago</h1>
-  <div id="cardPaymentBrick_container" ref="brickContainer"></div>
+  <div class="container-fluid my-3 my-md-4">
+    <h1 class="mb-4">Pagar con Mercado Pago</h1>
+    <div id="cardPaymentBrick_container" ref="brickContainer"></div>
 
-  <!-- Success modal -->
-  <div class="modal fade" ref="successModalRef" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">¡Éxito!</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="goToHome"></button>
-        </div>
-        <div class="modal-body">
-          ¡Felicidades! El pago se ha concretado con éxito. La compra estará llegando a tu casa en 5 días hábiles
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="goToHome">Volver a inicio</button>
-          <button type="button" class="btn btn-primary" @click="goToProducts">Continuar comprando</button>
+    <!-- Success modal -->
+    <div class="modal fade" ref="successModalRef" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">¡Éxito!</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="goToHome"></button>
+          </div>
+          <div class="modal-body">
+            ¡Felicidades! El pago se ha concretado con éxito. La compra estará llegando a tu casa en 5 días hábiles
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="goToHome">Volver a inicio</button>
+            <button type="button" class="btn btn-primary" @click="goToProducts">Continuar comprando</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Error modal -->
-  <div class="modal fade" ref="errorModalRef" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Error</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="errorOkay"></button>
-        </div>
-        <div class="modal-body">
-          Ha ocurrido un error al procesar el pago. Por favor, inténtelo nuevamente más tarde
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" @click="errorOkay">Entendido</button>
+    <!-- Error modal -->
+    <div class="modal fade" ref="errorModalRef" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Error</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="errorOkay"></button>
+          </div>
+          <div class="modal-body">
+            Ha ocurrido un error al procesar el pago. Por favor, inténtelo nuevamente más tarde
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" @click="errorOkay">Entendido</button>
+          </div>
         </div>
       </div>
     </div>
+
   </div>
-
-
 </template>
   
 <script setup>
