@@ -1,5 +1,5 @@
 <template>
-  	<div class="container-fluid">
+  	<div class="container-fluid mt-4 mt-md-5">
 		<p class="lead">
 			Esta página fue desarrollada como segunda parte de un proyecto universitario por el equipo Algorithm Avengers.
 		</p>

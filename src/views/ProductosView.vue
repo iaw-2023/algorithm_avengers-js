@@ -4,7 +4,7 @@ import ProductList from '../components/productos/ProductList.vue'
 
 <template>
     <main> 
-        <div class="container-fluid">
+        <div class="container-fluid mt-3 mt-md-5 center-items">
             <ProductList />
         </div>
     </main>
