@@ -21,7 +21,7 @@
                 <div class="container d-grid">
                     <div v-for="detalle in compra.detalles" class="card mb-1 mx-auto" style="max-width: 540px;">
                         <div class="row align-items-center g-0">
-                            <div class="col-md-4">
+                            <div class="col-md-4 d-flex align-items-center justify-content-center">
                                 <img :src="detalle.producto.imagen" class="imagen img-fluid rounded-start m-2" alt="imagen de producto">
                             </div>
                             <div class="col-md-8">
