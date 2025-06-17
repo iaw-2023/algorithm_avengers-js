@@ -1,12 +1,18 @@
 <script setup>
-    import { RouterLink, RouterView } from 'vue-router'
+    import { RouterLink, RouterView, useRouter } from 'vue-router'
     import { useCartStore } from '../stores/CartStore';
     import { useCategoryStore } from '../stores/CategoryStore';
     import { useProductsStore } from '../stores/ProductsStore';
+    import { ref, computed } from 'vue';
+    import { useAuthStore } from '@/stores/AuthStore';
+    import Login from '../components/Login.vue'
 
     const cartStore = useCartStore();
     const categoryStore = useCategoryStore();
     const productsStore = useProductsStore();
+    // Auth store and router
+    const authStore = useAuthStore();
+    const router = useRouter();
 
     function selectCategoria(id){
         productsStore.setProductosByCat(id);
@@ -15,22 +21,39 @@
     function selectTodosProductos(){
         productsStore.setProductosAll();
     }
+
+    const isAuthenticated = computed(() => authStore.isAuthenticated);
+    const user = computed(() => authStore.user);
+
+    const logout = () => authStore.logout();
+    const purchases = () => authStore.purchases();
+
+   // console.log(`Usuario: ${JSON.stringify(user)}`);
 </script>
 
 <template>
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <RouterLink to="/" id="logo">
-                <img src="https://manosargentinas.com/inicio/wp-content/uploads/2022/04/logo_new1.png" alt="Logo" class="d-inline-block align-text-top">
+                <img src="https://res.cloudinary.com/drspuruy2/image/upload/v1738273320/MA_logo_ob_tb7inf.png" alt="Logo" class="d-inline-block align-text-top" style="max-width: 150px;">
             </RouterLink>  
             <span class="navbar-text">
-                <div id="carrito">
-                    <RouterLink to="/carrito" class="nav-link active position-relative">
-                        <v-icon name="bi-cart" scale="1.5" animation="wrench" hover />
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" :hidden="cartStore.cartItemsSize == 0">
-                            {{ cartStore.cartItemsSize }}
-                        </span>
-                    </RouterLink>
+                <div class="row align-items-end">
+                    <div class="col text-center" v-if="isAuthenticated" >
+                        <RouterLink to="/compras" class="nav-link active position-relative">
+                            <v-icon @click="purchases" name="bi-handbag" scale="1.5" animation="wrench" hover inverse/>
+                            <p class="m-0">Compras</p>
+                        </RouterLink>
+                    </div>
+                    <div class="col text-center me-4">
+                        <RouterLink to="/carrito" class="nav-link active position-relative">
+                            <v-icon name="bi-cart" scale="1.5" animation="wrench" hover />
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" :hidden="cartStore.cartItemsSize == 0">
+                                {{ cartStore.cartItemsSize }}
+                            </span>
+                            <p class="m-0">Carrito</p>
+                        </RouterLink>
+                    </div>
                 </div>
             </span>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
@@ -43,6 +66,25 @@
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                        <!-- Login Form or User Info -->
+                        <div class="auth-section">
+                            <div v-if="!isAuthenticated">
+                                <div class="d-flex justify-content-end pe-1">
+                                    <p class="me-1">¿Eres nuevo?</p>
+                                    <router-link to="/register" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
+                                        Registrarse
+                                    </router-link>
+                                </div>
+                                <Login />
+                            </div>
+                            <div v-else>
+                                <span>Bienvenido, {{ user.nombre }}</span>
+                                <button @click="logout" class="d-flex justify-content-end pe-1 btn btn-danger btn-sm">Cerrar sesión</button>
+                            </div>
+                        </div>
+                        </li>
+
                         <li class="nav-item">
                             <RouterLink to="/" class="nav-link active">Home</RouterLink>
                         </li>
@@ -79,9 +121,5 @@
     text-align: center;
     display: block;
     margin:auto;
-}
-
-#carrito{
-    margin-right: 1.5rem;
 }
 </style>

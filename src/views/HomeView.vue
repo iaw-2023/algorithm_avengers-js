@@ -1,5 +1,5 @@
 <script setup>
-import Bienvenida from '../components/Bienvenida.vue'
+import Bienvenida from '../components/Bienvenida.vue';
 </script>
 
 <template>

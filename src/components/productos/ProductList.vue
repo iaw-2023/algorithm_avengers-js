@@ -1,9 +1,9 @@
 <template>
-    <div class="container text-center">
+    <div class="container">
         <div class="row justify-content-evenly">
             <div class="col" v-for="prod in productsStore.getProductos" :key="prod.id">
                 <ProductCard 
-                    class="card"
+                    class="card m-2"
                     :prod=prod
                 />
             </div>
@@ -20,13 +20,4 @@
 </script>
 
 <style>
-.card{
-    margin:10px;
-}
-
-#card-container{
-    display: inline-block;
-    flex-direction: column;
-}
-
 </style>
