@@ -1,4 +1,5 @@
 <template>   
+  <div class="container-fluid my-3 my-md-4">
     <div class="register-container">
       <h2>Crear usuario</h2>
       <form @submit.prevent="handleRegister" class="register-form">
@@ -36,6 +37,7 @@
         </div>
       </form>
     </div>
+  </div>
   </template>
   
   <script setup>
