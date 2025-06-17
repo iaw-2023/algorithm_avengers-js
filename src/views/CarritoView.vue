@@ -1,9 +1,9 @@
 <template>
     <div class="container-fluid my-3 my-md-4">
-        <table class="table table-hover">
+        <table v-if="!isMobile" class="table table-hover">
             <thead>
                 <tr>
-                <th scope="col" class="desktop-only">#</th>
+                <th scope="col">#</th>
                 <th scope="col">Imagen</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Cantidad</th>
@@ -15,7 +15,7 @@
             </thead>
             <tbody>
                 <tr v-for="item in cartStore.getCartItems" :key="item.cartItemId">
-                    <th scope="row" class="desktop-only">{{ item.id }}</th>
+                    <th scope="row">{{ item.id }}</th>
                     <td><img :src="item.imagen" :alt="item.nombre" class="img-thumbnail rounded" id="imagen"></td>
                     <td>{{ item.nombre }}</td>
                     <td>
@@ -53,6 +53,45 @@
                 </tr>
             </tbody>
         </table>
+
+        <table v-if="isMobile" class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Cant.</th>
+                <th scope="col">Talle</th>
+                <th scope="col">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in cartStore.getCartItems" :key="item.cartItemId">
+                    <td>
+                        <img :src="item.imagen" :alt="item.nombre" class="img-thumbnail rounded" id="imagen">
+                        {{ item.nombre }}
+                    </td>
+                    <td class="row d-flex align-items-center justify-content-center">
+                        <button @click="cartStore.decrementQty(item)" class="btn btn-primary btn-sm"> - </button>
+                        <span class="p-2 text-center">
+                            {{item.quantity}}
+                        </span>
+                        <button @click="cartStore.incrementQty(item)" class="btn btn-primary btn-sm"> + </button>
+                        
+                    </td>
+                    <td>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" label="Talle" required>
+                            <option v-for="talle in item.talles.split(',')" :key="talle" :value="talle" @click="cartStore.selectTalle(item, talle)"> {{ talle }}</option>
+                        </select>
+                    </td>
+                    <td>${{ item.precio * item.quantity }} </td>
+                    <td>
+                        <button @click="cartStore.removeFromCart(item.cartItemId)" class="btn btn-danger btn-sm"><v-icon name="bi-cart-dash" /> Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-end">
+            <p class="fw-bold">Total: ${{ cartStore.getTotal.toFixed(2) }}</p>
+        </div>
 
         <div>
         <!-- Button trigger modal -->
@@ -98,7 +137,7 @@
 
 <script setup>
     import { useCartStore } from '../stores/CartStore';
-    import { computed } from 'vue';
+    import { ref, onMounted, computed } from 'vue';
     import { useAuthStore } from '../stores/AuthStore';
     import { apiClient } from '../plugins/axios';
 
@@ -110,7 +149,11 @@
     const cartStore = useCartStore();
     
     const botonDeshabilitado = computed(() => !(cartStore.cartItemsSize > 0) || !authStore.isAuthenticated);
+    const isMobile = ref(false);
 
+    function checkIsMobile(){
+        isMobile.value = window.innerWidth <= 768;
+    }
 
     async function comprar(){
         let detalle = [];
@@ -139,6 +182,11 @@
 
         cartStore.vaciarCart();
     }
+
+    onMounted( () => {
+        checkIsMobile();
+        window.addEventListener('resize', checkIsMobile);
+    })
 </script>
 
 <style>
@@ -146,15 +194,5 @@
     width:auto;
     max-height: 100px;
     text-align: center;
-}
-
-.desktop-only{
-    display: flexbox;
-}
-
-@media (max-width: 768px) {
-    .desktop-only{
-        display: none;
-    }
 }
 </style>
