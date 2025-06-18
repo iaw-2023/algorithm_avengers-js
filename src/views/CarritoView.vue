@@ -19,7 +19,7 @@
                     <td><img :src="item.imagen" :alt="item.nombre" class="img-thumbnail rounded" id="imagen"></td>
                     <td>{{ item.nombre }}</td>
                     <td>
-                        <button @click="cartStore.decrementQty(item)" class="btn btn-primary btn-sm"> - </button>
+                        <button @click="cartStore.decrementQty(item)" class="btn btn-primary btn-sm"> − </button>
                         <span class="p-2">
                             {{item.quantity}}
                         </span>
@@ -70,7 +70,7 @@
                         {{ item.nombre }}
                     </td>
                     <td class="row d-flex align-items-center justify-content-center">
-                        <button @click="cartStore.decrementQty(item)" class="btn btn-primary btn-sm"> - </button>
+                        <button @click="cartStore.decrementQty(item)" class="btn btn-primary btn-sm"> − </button>
                         <span class="p-2 text-center">
                             {{item.quantity}}
                         </span>
