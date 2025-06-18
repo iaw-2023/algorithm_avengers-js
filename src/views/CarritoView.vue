@@ -19,7 +19,7 @@
                     <td><img :src="item.imagen" :alt="item.nombre" class="img-thumbnail rounded" id="imagen"></td>
                     <td>{{ item.nombre }}</td>
                     <td>
-                        <button @click="cartStore.decrementQty(item)" class="btn btn-primary btn-sm"> - </button>
+                        <button @click="cartStore.decrementQty(item)" class="btn btn-primary btn-sm"> − </button>
                         <span class="p-2">
                             {{item.quantity}}
                         </span>
@@ -70,7 +70,7 @@
                         {{ item.nombre }}
                     </td>
                     <td class="row d-flex align-items-center justify-content-center">
-                        <button @click="cartStore.decrementQty(item)" class="btn btn-primary btn-sm"> - </button>
+                        <button @click="cartStore.decrementQty(item)" class="btn btn-primary btn-sm"> − </button>
                         <span class="p-2 text-center">
                             {{item.quantity}}
                         </span>
@@ -125,9 +125,9 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <!-- <button type="button" class="btn btn-primary" @click="comprar()" data-bs-dismiss="modal">Continuar</button> -->
-                    <router-link to="/pagar">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Continuar al pago</button>
-                    </router-link>
+                    <!-- <router-link to="/pagar"> -->
+                        <button type="button" class="btn btn-primary" @click="goToPayment()" data-bs-dismiss="modal">Continuar al pago</button>
+                    <!-- </router-link> -->
                 </div>
                 </div>
             </div>
@@ -140,6 +140,7 @@
     import { ref, onMounted, computed } from 'vue';
     import { useAuthStore } from '../stores/AuthStore';
     import { apiClient } from '../plugins/axios';
+    import { useRouter } from 'vue-router';
 
     
     const authStore = useAuthStore();
@@ -150,9 +151,14 @@
     
     const botonDeshabilitado = computed(() => !(cartStore.cartItemsSize > 0) || !authStore.isAuthenticated);
     const isMobile = ref(false);
+    const router = useRouter();
 
     function checkIsMobile(){
         isMobile.value = window.innerWidth <= 768;
+    }
+
+    function goToPayment(){
+        router.push({name: 'pagar'});
     }
 
     async function comprar(){

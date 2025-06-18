@@ -40,13 +40,13 @@
             <span class="navbar-text">
                 <div class="row align-items-end">
                     <div class="col text-center" v-if="isAuthenticated" >
-                        <RouterLink to="/compras" class="nav-link active position-relative">
+                        <RouterLink to="/compras" class="nav-link active position-relative" aria-label="Mis compras">
                             <v-icon @click="purchases" name="bi-handbag" scale="1.5" animation="wrench" hover inverse/>
                             <p class="m-0">Compras</p>
                         </RouterLink>
                     </div>
                     <div class="col text-center me-4">
-                        <RouterLink to="/carrito" class="nav-link active position-relative">
+                        <RouterLink to="/carrito" class="nav-link active position-relative" aria-label="Carrito">
                             <v-icon name="bi-cart" scale="1.5" animation="wrench" hover />
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" :hidden="cartStore.cartItemsSize == 0">
                                 {{ cartStore.cartItemsSize }}
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </span>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle de navegación">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
