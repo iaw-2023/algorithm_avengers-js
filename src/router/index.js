@@ -41,13 +41,13 @@ const router = createRouter({
     },
     {
       path: '/compras',
-      name: 'Mis compras',
+      name: 'compras',
       component: ComprasView,
       meta: {requiresAuth: true},
     },
     {
       path: '/pagar',
-      name: 'Pagar con MercadoPago',
+      name: 'pagar',
       component: MercadoPagoView,
       meta: {requiresAuth: true}
     }
