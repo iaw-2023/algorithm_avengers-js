@@ -1,9 +1,12 @@
 <template>
-  <header>
-    <NavBar />
-  </header>
-
-  <RouterView />
+  <div class="container-fluid px-1 px-md-5">
+	<header>
+		<NavBar />
+	</header>
+	<div class="content">
+		<RouterView />
+	</div>
+  </div>
 </template>
 
 <script setup>
@@ -25,5 +28,7 @@
 </script>
 
 <style>
-
+.content{
+	padding-top: 6em;	
+}
 </style>
